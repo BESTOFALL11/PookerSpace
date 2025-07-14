@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Place for Timea ♡</title>
+    
+    <style>
+        /* --- HIGH-QUALITY AESTHETICS - ALL-IN-ONE FILE --- */
+        @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500&family=Poppins:wght@400;600&display=swap');
+
+        :root {
+            --c-bg-start: #fde4ea; --c-bg-end: #d8b4fe;
+            --c-widget: rgba(255, 255, 255, 0.4);
+            --c-widget-border: rgba(255, 255, 255, 0.6);
+            --c-text: #4a4158; --c-heading: #c77d97; --c-accent: #e87a90;
+            --c-shadow: rgba(199, 125, 151, 0.1);
+            --glow-color: rgba(255, 227, 236, 0.15);
+            --mouse-x: 50%; --mouse-y: 50%; /* For the lighting effect */
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--c-text);
+            background-color: #fcefee;
+            background-image: linear-gradient(45deg, var(--c-bg-start), var(--c-bg-end));
+            animation: gradient-animation 20s ease infinite;
+            min-height: 100vh; padding: clamp(1rem, 5vw, 4rem);
+            background-size: 200% 200%; overflow: hidden;
+            position: relative;
+        }
+        @keyframes gradient-animation { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+
+        /* NEW: Dynamic Lighting Effect */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(circle 350px at var(--mouse-x) var(--mouse-y), var(--glow-color), transparent);
+            pointer-events: none;
+            transition: background 0.2s ease-out;
+            z-index: 1;
+        }
+        
+        /* NEW: Lush Floral Background Elements */
+        .flower-bg {
+            position: fixed;
+            background-size: contain;
+            background-repeat: no-repeat;
+            opacity: 0.1;
+            z-index: -1;
+            animation: sway 25s ease-in-out infinite alternate;
+        }
+        .flower-bg-1 {
+            width: 300px; height: 300px; top: -50px; left: -80px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="%23ffffff" d="M50,1.3C52.7,21.8,68,26.6,85.2,34.8c12.1,5.8,21.9,19.8,13.7,31.9c-8.2,12.1,-27.1,13,-38.5,20.4C46.8,94.4,26.4,95.5,15.2,85C4.1,74.5,5.1,55.1,10.6,39.9c5.5,-15.2,16.5,-26,29.6,-34.8C43.3,2.4,47.4,-4.6,50,1.3z"/></svg>');
+        }
+        .flower-bg-2 {
+            width: 250px; height: 250px; bottom: -60px; right: -70px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="%23ffffff" d="M96.1,49.2C89.4,66.1,75,76.5,59.3,81.1c-15.7,4.6,-32.7,3.4,-44.2,-8.1C3.6,61.5,-2.1,45.4,3.1,30.7C8.2,16,24.1,6.6,40.1,3.9C56,-1.7,72.1,2,83.1,13.8c11,11.8,19.7,28.8,13,35.4z"/></svg>');
+            animation-delay: -5s;
+        }
+        @keyframes sway { from { transform: rotate(-10deg) translateX(-15px); } to { transform: rotate(10deg) translateX(15px); } }
+
+        .dashboard-container { max-width: 1200px; margin: 0 auto; position: relative; z-index: 2; }
+        .interactive-trail-char { position: fixed; font-size: 2rem; pointer-events: none; z-index: 9999; animation: bloomAndFade 1.2s ease-out forwards; text-shadow: 0 0 5px rgba(255,255,255,0.7); }
+        @keyframes bloomAndFade { 0% { transform: scale(0); } 50% { transform: scale(1.2); } 100% { transform: scale(0); opacity: 0; } }
+
+        .dashboard-header { text-align: center; margin-bottom: 3rem; }
+        .greeting-container h1 { font-family: 'Caveat', cursive; font-size: clamp(3rem, 10vw, 5rem); color: white; font-weight: 500; text-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+        
+        .dashboard-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
+            gap: 2rem; 
+            perspective: 2000px; /* NEW: Enables 3D transforms for children */
+        }
+
+        /* NEW: High-Effort 3D Widget Styling */
+        .widget-card {
+            background: var(--c-widget);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-radius: 24px;
+            padding: 1.5rem;
+            border: 1px solid var(--c-widget-border);
+            box-shadow: 
+                inset 0 1px 1px rgba(255,255,255,0.5), /* Inner top highlight */
+                0 2px 5px rgba(0,0,0,0.05), /* Subtle direct shadow */
+                0 25px 50px -12px rgba(0,0,0,0.15); /* Ambient shadow */
+            transition: transform 0.4s ease-out, box-shadow 0.4s ease-out;
+            display: flex; flex-direction: column;
+        }
+
+        /* NEW: 3D Hover Effect - Only works on devices that can hover */
+        @media (hover: hover) and (pointer: fine) {
+            .widget-card:hover {
+                transform: translateY(-10px) rotateX(2deg) rotateY(3deg) scale(1.03);
+                box-shadow: 
+                    inset 0 1px 1px rgba(255,255,255,0.5),
+                    0 2px 5px rgba(0,0,0,0.1),
+                    0 40px 70px -15px rgba(0,0,0,0.2);
+            }
+        }
+        
+        .widget-card h3 { font-family: 'Caveat', cursive; font-size: 1.8rem; color: var(--c-heading); margin-bottom: 1rem; }
+        .countdown-card span { font-size: 2.2rem; font-weight: 600; }
+        .countdown-card #countdown-timer { display: flex; justify-content: space-around; text-align: center; }
+        .note-card p, .compliment-card p { font-size: 1.1rem; line-height: 1.7; font-style: italic; flex-grow: 1; }
+        .gallery-card .gallery-image-container { width: 100%; height: 250px; border-radius: 1rem; overflow: hidden; background-color: rgba(255,255,255,0.2); }
+        .gallery-card img { width: 100%; height: 100%; object-fit: cover; }
+        .todo-card ul { list-style: none; padding-left: 0; } .todo-card li { display: flex; align-items: center; margin-bottom: 0.8rem; }
+        .todo-card li::before { content: '🐾'; margin-right: 0.75rem; opacity: 0.5; }
+        .todo-card input[type="checkbox"] { display: none; } .todo-card label { cursor: pointer; }
+        .todo-card input[type="checkbox"]:checked + label { text-decoration: line-through; color: var(--c-accent); opacity: 0.7; }
+        .clock-card { text-align: center; justify-content: center; }
+        .clock-card #live-clock { font-size: clamp(2.5rem, 10vw, 3.5rem); font-weight: 600; }
+        .compliment-card { text-align: center; }
+        #compliment-button { background: var(--c-accent); border: none; border-radius: 50%; width: 60px; height: 60px; cursor: pointer; display: flex; justify-content: center; align-items: center; margin: 1rem auto 0; transition: transform 0.2s ease; box-shadow: 0 4px 15px var(--c-shadow); }
+        #compliment-button:hover { transform: scale(1.1); }
+        #compliment-button svg { width: 30px; height: 30px; fill: white; }
+
+        .kitty-parade { position: fixed; bottom: 0; left: 0; width: 100%; height: 60px; pointer-events: none; overflow: hidden; }
+        .kitty-container { display: flex; width: 200%; height: 100%; animation: scroll-left-final 30s linear infinite; }
+        .kitty-container > div { display: flex; justify-content: space-around; width: 100%; align-items: center; }
+        .kitty-container span { font-size: 2.5rem; text-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        @keyframes scroll-left-final { from { transform: translateX(0%); } to { transform: translateX(-50%); } }
+
+    </style>
+</head>
+<body>
+
+    <div class="flower-bg flower-bg-1"></div>
+    <div class="flower-bg flower-bg-2"></div>
+
+    <div class="dashboard-container">
+        
+        <header class="dashboard-header">
+            <div class="greeting-container">
+                <h1 id="greeting-text">Hello, my beautiful pooker Timi!</h1>
+            </div>
+        </header>
+
+        <main class="dashboard-grid">
+            
+            <div class="widget-card countdown-card">
+                <h3>Our 1 Year Anniversary</h3>
+                <div id="countdown-timer">
+                    <div><span id="days">00</span>Days</div>
+                    <div><span id="hours">00</span>Hours</div>
+                    <div><span id="minutes">00</span>Mins</div>
+                    <div><span id="seconds">00</span>Secs</div>
+                </div>
+            </div>
+
+            <div class="widget-card compliment-card">
+                <h3>For You...</h3>
+                <p id="compliment-text">Click the heart for a surprise!</p>
+                <button id="compliment-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                </button>
+            </div>
+
+            <div class="widget-card gallery-card">
+                <h3>Our Best Moments</h3>
+                <div class="gallery-image-container">
+                    <img id="gallery-image" src="https://images.unsplash.com/photo-1541364983171-a8ba01e95cfc?q=80&w=1974" alt="A cute photo of us">
+                </div>
+            </div>
+
+            <div class="widget-card note-card">
+                 <h3>A Little Note For You</h3>
+                <p>I wanted to make a special place website for us, a little special place for you to come and see all the things we have done and what to look forward to. I love you more than all the stars my beautiful pooker!</p>
+            </div>
+            
+            <div class="widget-card todo-card">
+                <h3>Our Fun List ♡</h3>
+                <ul>
+                    <li><input type="checkbox" id="item1"><label for="item1">Date night at the park</label></li>
+                    <li><input type="checkbox" id="item2"><label for="item2">Watch "How to train your dragon"</label></li>
+                    <li><input type="checkbox" id="item3"><label for="item3">Have a cute date at home</label></li>
+                    <li><input type="checkbox" id="item4"><label for="item4">Go out at night in the city</label></li>
+                </ul>
+            </div>
+            
+            <div class="widget-card clock-card">
+                <div id="live-clock">12:00:00 PM</div>
+                <div id="current-date">A beautiful day</div>
+            </div>
+
+        </main>
+    </div>
+
+    <div class="kitty-parade">
+        <div class="kitty-container">
+            <div>
+                <span>🐈</span><span>🐾</span><span>ᓚᘏᗢ</span><span>🐾</span><span>🐈</span><span>🐾</span><span>ᓚᘏᗢ</span>
+            </div>
+            <div>
+                <span>🐈</span><span>🐾</span><span>ᓚᘏᗢ</span><span>🐾</span><span>🐈</span><span>🐾</span><span>ᓚᘏᗢ</span>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+            // NEW: Dynamic lighting effect
+            const root = document.documentElement;
+            document.addEventListener('mousemove', e => {
+                root.style.setProperty('--mouse-x', e.clientX + "px");
+                root.style.setProperty('--mouse-y', e.clientY + "px");
+            });
+
+            // --- All other JavaScript functions are reliable and unchanged ---
+            const countdownDate = new Date(new Date().getFullYear(), 8, 3).getTime(); // Sept 3
+            const girlfriendName = "Timea";
+
+            const compliments = [
+                "You have the most beautiful smile.", "I'm so lucky to have you in my life.",
+                "You make every day better just by being in it.", "Your laugh is my favorite sound.",
+                "You are incredibly smart and talented.", "Being with you feels like home.",
+                "You always know how to make me feel better.", "You're even cuter than all these kitties!",
+                "I love the way you see the world.", "You're my absolute favorite person."
+            ];
+
+            const photoGalleryImages = [
+                "images/photo1.jpg",
+                "images/photo2.jpg",
+                "images/photo3.jpg",
+                "images/photo4.jpg",
+                "images/photo5.jpg",
+                "images/photo6.jpg",
+                "images/photo7.jpg",
+                "images/photo8.jpg",
+                "images/photo9.jpg",
+                "images/photo10.jpg",
+                "images/photo11.jpg",
+                "images/photo12.jpg",
+                "images/photo13.jpg",
+                "images/photo14.jpg",
+                "images/photo15.jpg"
+            ];
+            
+            const trailChars = ['🌸', '💖', '✨', '💕', '⭐'];
+            document.body.addEventListener('mousemove', function(e) {
+                const trailEl = document.createElement('div');
+                trailEl.className = 'interactive-trail-char';
+                trailEl.textContent = trailChars[Math.floor(Math.random() * trailChars.length)];
+                document.body.appendChild(trailEl);
+                trailEl.style.left = e.clientX - 10 + 'px';
+                trailEl.style.top = e.clientY - 10 + 'px';
+                setTimeout(() => { trailEl.remove(); }, 1200);
+            });
+
+            const complimentTextEl = document.getElementById('compliment-text');
+            const complimentButtonEl = document.getElementById('compliment-button');
+            let lastComplimentIndex = -1;
+            function showRandomCompliment() {
+                let randomIndex;
+                do {
+                    randomIndex = Math.floor(Math.random() * compliments.length);
+                } while (randomIndex === lastComplimentIndex && compliments.length > 1);
+                lastComplimentIndex = randomIndex;
+                complimentTextEl.textContent = compliments[randomIndex];
+            }
+            complimentButtonEl.addEventListener('click', showRandomCompliment);
+            
+            const greetingTextEl = document.getElementById('greeting-text');
+            const currentHour = new Date().getHours();
+            if (currentHour < 12) { greetingTextEl.textContent = `Good morning, ${girlfriendName}!`; } 
+            else if (currentHour < 18) { greetingTextEl.textContent = `Good afternoon, ${girlfriendName}!`; } 
+            else { greetingTextEl.textContent = `Good evening, ${girlfriendName}!`; }
+            
+            const clockElement = document.getElementById('live-clock');
+            const dateElement = document.getElementById('current-date');
+            const updateClock = () => { const now = new Date(); clockElement.textContent = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }); dateElement.textContent = now.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' }); };
+            
+            const daysEl = document.getElementById('days'), hoursEl = document.getElementById('hours'), minutesEl = document.getElementById('minutes'), secondsEl = document.getElementById('seconds');
+            const countdownInterval = setInterval(() => { const now = new Date().getTime(); const distance = countdownDate - now; if (distance < 0) { clearInterval(countdownInterval); document.getElementById('countdown-timer').innerHTML = "<div style='font-size:1.5rem; width:100%;'>Happy Anniversary! 🎉</div>"; return; } daysEl.textContent = String(Math.floor(distance / (1000 * 60 * 60 * 24))).padStart(2, '0'); hoursEl.textContent = String(Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0'); minutesEl.textContent = String(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0'); secondsEl.textContent = String(Math.floor((distance % (1000 * 60)) / 1000)).padStart(2, '0'); }, 1000);
+            
+            const galleryImageEl = document.getElementById('gallery-image');
+            let currentPhotoIndex = 0;
+            const updateGallery = () => { currentPhotoIndex = (currentPhotoIndex + 1) % photoGalleryImages.length; galleryImageEl.style.opacity = 0; setTimeout(() => { galleryImageEl.src = photoGalleryImages[currentPhotoIndex]; galleryImageEl.style.opacity = 1; }, 500); };
+            
+            updateClock();
+            setInterval(updateClock, 1000);
+            showRandomCompliment();
+            updateGallery();
+            setInterval(updateGallery, 5000);
+        });
+    </script>
+</body>
+</html>
