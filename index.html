@@ -33,7 +33,6 @@
         }
         @keyframes gradient-animation { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
 
-        /* NEW: Dynamic Lighting Effect */
         body::before {
             content: '';
             position: fixed;
@@ -44,7 +43,6 @@
             z-index: 1;
         }
         
-        /* NEW: Lush Floral Background Elements */
         .flower-bg {
             position: fixed;
             background-size: contain;
@@ -75,10 +73,9 @@
             display: grid; 
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
             gap: 2rem; 
-            perspective: 2000px; /* NEW: Enables 3D transforms for children */
+            perspective: 2000px;
         }
 
-        /* NEW: High-Effort 3D Widget Styling */
         .widget-card {
             background: var(--c-widget);
             backdrop-filter: blur(20px) saturate(180%);
@@ -87,14 +84,13 @@
             padding: 1.5rem;
             border: 1px solid var(--c-widget-border);
             box-shadow: 
-                inset 0 1px 1px rgba(255,255,255,0.5), /* Inner top highlight */
-                0 2px 5px rgba(0,0,0,0.05), /* Subtle direct shadow */
-                0 25px 50px -12px rgba(0,0,0,0.15); /* Ambient shadow */
+                inset 0 1px 1px rgba(255,255,255,0.5),
+                0 2px 5px rgba(0,0,0,0.05),
+                0 25px 50px -12px rgba(0,0,0,0.15);
             transition: transform 0.4s ease-out, box-shadow 0.4s ease-out;
             display: flex; flex-direction: column;
         }
 
-        /* NEW: 3D Hover Effect - Only works on devices that can hover */
         @media (hover: hover) and (pointer: fine) {
             .widget-card:hover {
                 transform: translateY(-10px) rotateX(2deg) rotateY(3deg) scale(1.03);
@@ -111,10 +107,21 @@
         .note-card p, .compliment-card p { font-size: 1.1rem; line-height: 1.7; font-style: italic; flex-grow: 1; }
         .gallery-card .gallery-image-container { width: 100%; height: 250px; border-radius: 1rem; overflow: hidden; background-color: rgba(255,255,255,0.2); }
         .gallery-card img { width: 100%; height: 100%; object-fit: cover; }
-        .todo-card ul { list-style: none; padding-left: 0; } .todo-card li { display: flex; align-items: center; margin-bottom: 0.8rem; }
-        .todo-card li::before { content: '🐾'; margin-right: 0.75rem; opacity: 0.5; }
-        .todo-card input[type="checkbox"] { display: none; } .todo-card label { cursor: pointer; }
+        
+        /* UPDATED & NEW STYLES for To-Do List */
+        .todo-card ul { list-style: none; padding-left: 0; flex-grow: 1; }
+        .todo-card li { display: flex; align-items: center; margin-bottom: 0.8rem; font-size: 1rem; }
+        .todo-card li label { flex-grow: 1; cursor: pointer; }
+        .todo-card li .delete-btn { background: none; border: none; cursor: pointer; font-size: 0.8rem; opacity: 0.5; transition: opacity 0.2s; padding: 0.5rem; }
+        .todo-card li .delete-btn:hover { opacity: 1; }
+        .todo-card input[type="checkbox"] { margin-right: 0.75rem; accent-color: var(--c-accent); width: 18px; height: 18px; cursor: pointer; }
         .todo-card input[type="checkbox"]:checked + label { text-decoration: line-through; color: var(--c-accent); opacity: 0.7; }
+        #add-item-form { display: flex; gap: 0.5rem; margin-top: 1rem; }
+        #new-item-input { flex-grow: 1; border: 1px solid rgba(0,0,0,0.1); background: rgba(255,255,255,0.5); border-radius: 8px; padding: 0.5rem; color: var(--c-text); font-family: 'Poppins', sans-serif;}
+        #new-item-input::placeholder { color: var(--c-text); opacity: 0.6; }
+        #add-item-button { background: var(--c-accent); color: white; border: none; border-radius: 8px; padding: 0 1rem; font-weight: 600; cursor: pointer; transition: background 0.2s; font-size: 1.5rem; line-height: 1; }
+        #add-item-button:hover { background: var(--c-heading); }
+
         .clock-card { text-align: center; justify-content: center; }
         .clock-card #live-clock { font-size: clamp(2.5rem, 10vw, 3.5rem); font-weight: 600; }
         .compliment-card { text-align: center; }
@@ -175,14 +182,16 @@
                 <p>I wanted to make a special place website for us, a little special place for you to come and see all the things we have done and what to look forward to. I love you more than all the stars my beautiful pooker!</p>
             </div>
             
+            <!-- THIS IS THE FULLY INTERACTIVE WIDGET -->
             <div class="widget-card todo-card">
                 <h3>Our Fun List ♡</h3>
-                <ul>
-                    <li><input type="checkbox" id="item1"><label for="item1">Date night at the park</label></li>
-                    <li><input type="checkbox" id="item2"><label for="item2">Watch "How to train your dragon"</label></li>
-                    <li><input type="checkbox" id="item3"><label for="item3">Have a cute date at home</label></li>
-                    <li><input type="checkbox" id="item4"><label for="item4">Go out at night in the city</label></li>
+                <ul id="fun-list">
+                    <!-- List items will be dynamically added here -->
                 </ul>
+                <form id="add-item-form">
+                    <input type="text" id="new-item-input" placeholder="New fun thing..." autocomplete="off">
+                    <button type="submit" id="add-item-button">+</button>
+                </form>
             </div>
             
             <div class="widget-card clock-card">
@@ -195,57 +204,112 @@
 
     <div class="kitty-parade">
         <div class="kitty-container">
-            <div>
-                <span>🐈</span><span>🐾</span><span>ᓚᘏᗢ</span><span>🐾</span><span>🐈</span><span>🐾</span><span>ᓚᘏᗢ</span>
-            </div>
-            <div>
-                <span>🐈</span><span>🐾</span><span>ᓚᘏᗢ</span><span>🐾</span><span>🐈</span><span>🐾</span><span>ᓚᘏᗢ</span>
-            </div>
+            <div><span>🐈</span><span>🐾</span><span>ᓚᘏᗢ</span><span>🐾</span><span>🐈</span><span>🐾</span><span>ᓚᘏᗢ</span></div>
+            <div><span>🐈</span><span>🐾</span><span>ᓚᘏᗢ</span><span>🐾</span><span>🐈</span><span>🐾</span><span>ᓚᘏᗢ</span></div>
         </div>
     </div>
     
     <script>
         document.addEventListener('DOMContentLoaded', function() {
 
-            // NEW: Dynamic lighting effect
             const root = document.documentElement;
             document.addEventListener('mousemove', e => {
                 root.style.setProperty('--mouse-x', e.clientX + "px");
                 root.style.setProperty('--mouse-y', e.clientY + "px");
             });
 
-            // --- All other JavaScript functions are reliable and unchanged ---
-            const countdownDate = new Date(new Date().getFullYear(), 8, 3).getTime(); // Sept 3
+            const countdownDate = new Date(new Date().getFullYear(), 8, 3).getTime();
             const girlfriendName = "Pooker";
 
-          const compliments = [
-    "I love you my little poooper",
-    "M-AU",
-    "Hello green eyed Pooker",
-    "Miu Miu Miu",
-    "I sens LOVEEEEE",
-    "Each time u press the button u give a virtual kissy kiss",
-    "Peter and Pooker loves you"
-];
-
-            const photoGalleryImages = [
-                "images/photo1.jpg",
-                "images/photo2.jpg",
-                "images/photo3.jpg",
-                "images/photo4.jpg",
-                "images/photo5.jpg",
-                "images/photo6.jpg",
-                "images/photo7.jpg",
-                "images/photo8.jpg",
-                "images/photo9.jpg",
-                "images/photo10.jpg",
-                "images/photo11.jpg",
-                "images/photo12.jpg",
-                "images/photo13.jpg",
-                "images/photo14.jpg",
-                "images/photo15.jpg"
+            const compliments = [
+                "I love you my little poooper", "M-AU", "Hello green eyed Pooker", "Miu Miu Miu",
+                "I sens LOVEEEEE", "Each time u press the button u give a virtual kissy kiss",
+                "Peter and Pooker loves you"
             ];
             
+            const photoGalleryImages = [
+                "images/photo1.jpg", "images/photo2.jpg", "images/photo3.jpg", "images/photo4.jpg",
+                "images/photo5.jpg", "images/photo6.jpg", "images/photo7.jpg", "images/photo8.jpg",
+                "images/photo9.jpg", "images/photo10.jpg", "images/photo11.jpg", "images/photo12.jpg",
+                "images/photo13.jpg", "images/photo14.jpg", "images/photo15.jpg"
+            ];
+            
+            // --- NEW: Fun List Logic with Local Storage --- //
+            const funList = document.getElementById('fun-list');
+            const addItemForm = document.getElementById('add-item-form');
+            const newItemInput = document.getElementById('new-item-input');
+
+            const saveList = () => {
+                const currentItems = [];
+                funList.querySelectorAll('li').forEach(li => {
+                    currentItems.push({
+                        text: li.querySelector('label').textContent,
+                        checked: li.querySelector('input[type="checkbox"]').checked,
+                        id: li.dataset.id
+                    });
+                });
+                localStorage.setItem('ourFunListItems', JSON.stringify(currentItems));
+            };
+
+            const createListItem = (item) => {
+                const li = document.createElement('li');
+                li.dataset.id = item.id;
+
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.checked = item.checked;
+                checkbox.id = item.id;
+                
+                const label = document.createElement('label');
+                label.htmlFor = item.id;
+                label.textContent = item.text;
+
+                const deleteBtn = document.createElement('button');
+                deleteBtn.className = 'delete-btn';
+                deleteBtn.textContent = '❌';
+
+                li.appendChild(checkbox);
+                li.appendChild(label);
+                li.appendChild(deleteBtn);
+                funList.appendChild(li);
+
+                checkbox.addEventListener('change', saveList);
+                deleteBtn.addEventListener('click', () => {
+                    li.remove();
+                    saveList();
+                });
+            };
+
+            const loadList = () => {
+                const savedItemsJSON = localStorage.getItem('ourFunListItems');
+                const defaultItems = [
+                    { id: 'item-1', text: "Date night at the park", checked: false },
+                    { id: 'item-2', text: 'Watch "How to train your dragon"', checked: false },
+                    { id: 'item-3', text: "Have a cute date at home", checked: false },
+                    { id: 'item-4', text: "Go out at night in the city", checked: false }
+                ];
+                
+                const itemsToLoad = savedItemsJSON ? JSON.parse(savedItemsJSON) : defaultItems;
+                itemsToLoad.forEach(item => createListItem(item));
+            };
+
+            addItemForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const text = newItemInput.value.trim();
+                if (text === '') return;
+
+                const newItem = {
+                    id: `item-${Date.now()}`,
+                    text: text,
+                    checked: false
+                };
+
+                createListItem(newItem);
+                saveList();
+                newItemInput.value = '';
+            });
+
+            // --- All other functions remain unchanged ---
             const trailChars = ['🌸', '💖', '✨', '💕', '⭐'];
             document.body.addEventListener('mousemove', function(e) {
                 const trailEl = document.createElement('div');
@@ -287,6 +351,8 @@
             let currentPhotoIndex = 0;
             const updateGallery = () => { currentPhotoIndex = (currentPhotoIndex + 1) % photoGalleryImages.length; galleryImageEl.style.opacity = 0; setTimeout(() => { galleryImageEl.src = photoGalleryImages[currentPhotoIndex]; galleryImageEl.style.opacity = 1; }, 500); };
             
+            // Initial calls on page load
+            loadList(); // This must be called to populate the list!
             updateClock();
             setInterval(updateClock, 1000);
             showRandomCompliment();
