@@ -6,7 +6,7 @@
     <title>A Special Place for Pooker ♡</title>
     
     <style>
-        /* --- HIGH-QUALITY AESTHETICS - ALL-IN-ONE FILE --- */
+        /* --- PREMIUM AESTHETICS - ALL-IN-ONE FILE --- */
         @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500&family=Poppins:wght@400;600&display=swap');
 
         :root {
@@ -16,7 +16,7 @@
             --c-text: #4a4158; --c-heading: #c77d97; --c-accent: #e87a90;
             --c-shadow: rgba(199, 125, 151, 0.1);
             --glow-color: rgba(255, 227, 236, 0.15);
-            --mouse-x: 50%; --mouse-y: 50%; /* For the lighting effect */
+            --mouse-x: 50%; --mouse-y: 50%;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -33,34 +33,58 @@
         }
         @keyframes gradient-animation { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
 
+        /* Dynamic Lighting Effect */
         body::before {
-            content: '';
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
+            content: ''; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
             background: radial-gradient(circle 350px at var(--mouse-x) var(--mouse-y), var(--glow-color), transparent);
-            pointer-events: none;
-            transition: background 0.2s ease-out;
-            z-index: 1;
+            pointer-events: none; transition: background 0.2s ease-out; z-index: 1;
         }
         
-        .flower-bg {
-            position: fixed;
-            background-size: contain;
-            background-repeat: no-repeat;
-            opacity: 0.1;
-            z-index: -1;
-            animation: sway 25s ease-in-out infinite alternate;
+        /* NEW: Cute Sun & Sun Rays */
+        .sun-container {
+            position: fixed; top: 20px; left: 20px;
+            width: 120px; height: 120px;
+            z-index: 0;
+            animation: rotate-effect 120s linear infinite;
         }
-        .flower-bg-1 {
-            width: 300px; height: 300px; top: -50px; left: -80px;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="%23ffffff" d="M50,1.3C52.7,21.8,68,26.6,85.2,34.8c12.1,5.8,21.9,19.8,13.7,31.9c-8.2,12.1,-27.1,13,-38.5,20.4C46.8,94.4,26.4,95.5,15.2,85C4.1,74.5,5.1,55.1,10.6,39.9c5.5,-15.2,16.5,-26,29.6,-34.8C43.3,2.4,47.4,-4.6,50,1.3z"/></svg>');
+        .sun-svg {
+            width: 100%; height: 100%;
+            filter: drop-shadow(0 0 15px rgba(255, 230, 150, 0.8));
         }
-        .flower-bg-2 {
-            width: 250px; height: 250px; bottom: -60px; right: -70px;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="%23ffffff" d="M96.1,49.2C89.4,66.1,75,76.5,59.3,81.1c-15.7,4.6,-32.7,3.4,-44.2,-8.1C3.6,61.5,-2.1,45.4,3.1,30.7C8.2,16,24.1,6.6,40.1,3.9C56,-1.7,72.1,2,83.1,13.8c11,11.8,19.7,28.8,13,35.4z"/></svg>');
-            animation-delay: -5s;
+        .sun-ray {
+            position: absolute; top: 50%; left: 50%;
+            width: 2px; height: 200px;
+            background: linear-gradient(to bottom, rgba(255, 238, 179, 0.6), transparent);
+            transform-origin: top center;
+            border-radius: 2px;
+            animation: pulse-ray 5s ease-in-out infinite;
         }
-        @keyframes sway { from { transform: rotate(-10deg) translateX(-15px); } to { transform: rotate(10deg) translateX(15px); } }
+        .sun-ray:nth-child(2) { transform: rotate(45deg); animation-delay: -1s; }
+        .sun-ray:nth-child(3) { transform: rotate(90deg); animation-delay: -2s; }
+        .sun-ray:nth-child(4) { transform: rotate(135deg); animation-delay: -3s; }
+        .sun-ray:nth-child(5) { transform: rotate(180deg); animation-delay: -4s; }
+        .sun-ray:nth-child(6) { transform: rotate(225deg); animation-delay: -1.5s; }
+        .sun-ray:nth-child(7) { transform: rotate(270deg); animation-delay: -2.5s; }
+        .sun-ray:nth-child(8) { transform: rotate(315deg); animation-delay: -3.5s; }
+
+        @keyframes pulse-ray {
+            0%, 100% { opacity: 0.3; transform: scaleY(0.8) rotate(var(--rotation)); }
+            50% { opacity: 0.7; transform: scaleY(1) rotate(var(--rotation)); }
+        }
+        @keyframes rotate-effect {
+            from { transform: rotate(0deg); } to { transform: rotate(360deg); }
+        }
+
+        /* NEW: Falling Flowers Container */
+        #falling-elements-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+        .falling-element {
+            position: absolute; top: -10%;
+            font-size: 1.5rem;
+            animation: fall linear;
+        }
+        @keyframes fall {
+            to { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+        }
 
         .dashboard-container { max-width: 1200px; margin: 0 auto; position: relative; z-index: 2; }
         .interactive-trail-char { position: fixed; font-size: 2rem; pointer-events: none; z-index: 9999; animation: bloomAndFade 1.2s ease-out forwards; text-shadow: 0 0 5px rgba(255,255,255,0.7); }
@@ -70,23 +94,16 @@
         .greeting-container h1 { font-family: 'Caveat', cursive; font-size: clamp(3rem, 10vw, 5rem); color: white; font-weight: 500; text-shadow: 0 4px 15px rgba(0,0,0,0.2); }
         
         .dashboard-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
-            gap: 2rem; 
-            perspective: 2000px;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
+            gap: 2rem; perspective: 2000px;
         }
 
         .widget-card {
             background: var(--c-widget);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
-            border-radius: 24px;
-            padding: 1.5rem;
+            backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-radius: 24px; padding: 1.5rem;
             border: 1px solid var(--c-widget-border);
-            box-shadow: 
-                inset 0 1px 1px rgba(255,255,255,0.5),
-                0 2px 5px rgba(0,0,0,0.05),
-                0 25px 50px -12px rgba(0,0,0,0.15);
+            box-shadow: inset 0 1px 1px rgba(255,255,255,0.5), 0 2px 5px rgba(0,0,0,0.05), 0 25px 50px -12px rgba(0,0,0,0.15);
             transition: transform 0.4s ease-out, box-shadow 0.4s ease-out;
             display: flex; flex-direction: column;
         }
@@ -94,10 +111,7 @@
         @media (hover: hover) and (pointer: fine) {
             .widget-card:hover {
                 transform: translateY(-10px) rotateX(2deg) rotateY(3deg) scale(1.03);
-                box-shadow: 
-                    inset 0 1px 1px rgba(255,255,255,0.5),
-                    0 2px 5px rgba(0,0,0,0.1),
-                    0 40px 70px -15px rgba(0,0,0,0.2);
+                box-shadow: inset 0 1px 1px rgba(255,255,255,0.5), 0 2px 5px rgba(0,0,0,0.1), 0 40px 70px -15px rgba(0,0,0,0.2);
             }
         }
         
@@ -108,7 +122,6 @@
         .gallery-card .gallery-image-container { width: 100%; height: 250px; border-radius: 1rem; overflow: hidden; background-color: rgba(255,255,255,0.2); }
         .gallery-card img { width: 100%; height: 100%; object-fit: cover; }
         
-        /* UPDATED & NEW STYLES for To-Do List */
         .todo-card ul { list-style: none; padding-left: 0; flex-grow: 1; }
         .todo-card li { display: flex; align-items: center; margin-bottom: 0.8rem; font-size: 1rem; }
         .todo-card li label { flex-grow: 1; cursor: pointer; }
@@ -138,9 +151,28 @@
     </style>
 </head>
 <body>
-
-    <div class="flower-bg flower-bg-1"></div>
-    <div class="flower-bg flower-bg-2"></div>
+    
+    <div id="falling-elements-container"></div>
+    
+    <div class="sun-container">
+        <svg class="sun-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <radialGradient id="sunGradient">
+                    <stop offset="0%" stop-color="#FFF7B8" />
+                    <stop offset="100%" stop-color="#FFD450" />
+                </radialGradient>
+            </defs>
+            <circle cx="50" cy="50" r="40" fill="url(#sunGradient)"/>
+        </svg>
+        <div class="sun-ray" style="--rotation: 0deg;"></div>
+        <div class="sun-ray" style="--rotation: 45deg;"></div>
+        <div class="sun-ray" style="--rotation: 90deg;"></div>
+        <div class="sun-ray" style="--rotation: 135deg;"></div>
+        <div class="sun-ray" style="--rotation: 180deg;"></div>
+        <div class="sun-ray" style="--rotation: 225deg;"></div>
+        <div class="sun-ray" style="--rotation: 270deg;"></div>
+        <div class="sun-ray" style="--rotation: 315deg;"></div>
+    </div>
 
     <div class="dashboard-container">
         
@@ -173,7 +205,7 @@
             <div class="widget-card gallery-card">
                 <h3>Our Best Moments</h3>
                 <div class="gallery-image-container">
-                    <img id="gallery-image" src="https://images.unsplash.com/photo-1541364983171-a8ba01e95cfc?q=80&w=1974" alt="A cute photo of us">
+                    <img id="gallery-image" src="images/photo1.jpg" alt="A cute photo of us">
                 </div>
             </div>
 
@@ -182,11 +214,9 @@
                 <p>I wanted to make a special place website for us, a little special place for you to come and see all the things we have done and what to look forward to. I love you more than all the stars my beautiful pooker!</p>
             </div>
             
-            <!-- THIS IS THE FULLY INTERACTIVE WIDGET -->
             <div class="widget-card todo-card">
                 <h3>Our Fun List ♡</h3>
                 <ul id="fun-list">
-                    <!-- List items will be dynamically added here -->
                 </ul>
                 <form id="add-item-form">
                     <input type="text" id="new-item-input" placeholder="New fun thing..." autocomplete="off">
@@ -212,12 +242,29 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
 
+            // Dynamic lighting effect
             const root = document.documentElement;
             document.addEventListener('mousemove', e => {
                 root.style.setProperty('--mouse-x', e.clientX + "px");
                 root.style.setProperty('--mouse-y', e.clientY + "px");
             });
 
+            // NEW: Falling flowers/emojis
+            const fallingElementsContainer = document.getElementById('falling-elements-container');
+            const fallingChars = ['🌸', '🌷', '💖', '🌺', '✨'];
+            setInterval(() => {
+                const el = document.createElement('div');
+                el.className = 'falling-element';
+                el.textContent = fallingChars[Math.floor(Math.random() * fallingChars.length)];
+                el.style.left = Math.random() * 100 + 'vw';
+                el.style.animationDuration = Math.random() * 5 + 10 + 's'; // Duration between 10s and 15s
+                el.style.opacity = Math.random();
+                el.style.fontSize = Math.random() * 1 + 1 + 'rem'; // Size between 1rem and 2rem
+                fallingElementsContainer.appendChild(el);
+                setTimeout(() => { el.remove(); }, 15000);
+            }, 400); // Create a new element every 400ms
+
+            // --- All other JavaScript functions are reliable and unchanged ---
             const countdownDate = new Date(new Date().getFullYear(), 8, 3).getTime();
             const girlfriendName = "Pooker";
 
@@ -234,7 +281,6 @@
                 "images/photo13.jpg", "images/photo14.jpg", "images/photo15.jpg"
             ];
             
-            // --- NEW: Fun List Logic with Local Storage --- //
             const funList = document.getElementById('fun-list');
             const addItemForm = document.getElementById('add-item-form');
             const newItemInput = document.getElementById('new-item-input');
@@ -252,32 +298,17 @@
             };
 
             const createListItem = (item) => {
-                const li = document.createElement('li');
-                li.dataset.id = item.id;
-
+                const li = document.createElement('li'); li.dataset.id = item.id;
                 const checkbox = document.createElement('input');
-                checkbox.type = 'checkbox';
-                checkbox.checked = item.checked;
-                checkbox.id = item.id;
-                
+                checkbox.type = 'checkbox'; checkbox.checked = item.checked; checkbox.id = item.id;
                 const label = document.createElement('label');
-                label.htmlFor = item.id;
-                label.textContent = item.text;
-
+                label.htmlFor = item.id; label.textContent = item.text;
                 const deleteBtn = document.createElement('button');
-                deleteBtn.className = 'delete-btn';
-                deleteBtn.textContent = '❌';
-
-                li.appendChild(checkbox);
-                li.appendChild(label);
-                li.appendChild(deleteBtn);
+                deleteBtn.className = 'delete-btn'; deleteBtn.textContent = '❌';
+                li.appendChild(checkbox); li.appendChild(label); li.appendChild(deleteBtn);
                 funList.appendChild(li);
-
                 checkbox.addEventListener('change', saveList);
-                deleteBtn.addEventListener('click', () => {
-                    li.remove();
-                    saveList();
-                });
+                deleteBtn.addEventListener('click', () => { li.remove(); saveList(); });
             };
 
             const loadList = () => {
@@ -288,7 +319,6 @@
                     { id: 'item-3', text: "Have a cute date at home", checked: false },
                     { id: 'item-4', text: "Go out at night in the city", checked: false }
                 ];
-                
                 const itemsToLoad = savedItemsJSON ? JSON.parse(savedItemsJSON) : defaultItems;
                 itemsToLoad.forEach(item => createListItem(item));
             };
@@ -297,19 +327,12 @@
                 e.preventDefault();
                 const text = newItemInput.value.trim();
                 if (text === '') return;
-
-                const newItem = {
-                    id: `item-${Date.now()}`,
-                    text: text,
-                    checked: false
-                };
-
+                const newItem = { id: `item-${Date.now()}`, text: text, checked: false };
                 createListItem(newItem);
                 saveList();
                 newItemInput.value = '';
             });
 
-            // --- All other functions remain unchanged ---
             const trailChars = ['🌸', '💖', '✨', '💕', '⭐'];
             document.body.addEventListener('mousemove', function(e) {
                 const trailEl = document.createElement('div');
@@ -326,9 +349,7 @@
             let lastComplimentIndex = -1;
             function showRandomCompliment() {
                 let randomIndex;
-                do {
-                    randomIndex = Math.floor(Math.random() * compliments.length);
-                } while (randomIndex === lastComplimentIndex && compliments.length > 1);
+                do { randomIndex = Math.floor(Math.random() * compliments.length); } while (randomIndex === lastComplimentIndex && compliments.length > 1);
                 lastComplimentIndex = randomIndex;
                 complimentTextEl.textContent = compliments[randomIndex];
             }
@@ -336,9 +357,9 @@
             
             const greetingTextEl = document.getElementById('greeting-text');
             const currentHour = new Date().getHours();
-            if (currentHour < 12) { greetingTextEl.textContent = `Good morning, ${girlfriendName}!`; } 
-            else if (currentHour < 18) { greetingTextEl.textContent = `Good afternoon, ${girlfriendName}!`; } 
-            else { greetingTextEl.textContent = `Good evening, ${girlfriendName}!`; }
+            if (currentHour < 12) { greetingTextEl.textContent = `Good morning, my beautiful pooker Timi!`; } 
+            else if (currentHour < 18) { greetingTextEl.textContent = `Good afternoon, my beautiful pooker Timi!`; } 
+            else { greetingTextEl.textContent = `Good evening, my beautiful pooker Timi!`; }
             
             const clockElement = document.getElementById('live-clock');
             const dateElement = document.getElementById('current-date');
@@ -349,10 +370,15 @@
             
             const galleryImageEl = document.getElementById('gallery-image');
             let currentPhotoIndex = 0;
-            const updateGallery = () => { currentPhotoIndex = (currentPhotoIndex + 1) % photoGalleryImages.length; galleryImageEl.style.opacity = 0; setTimeout(() => { galleryImageEl.src = photoGalleryImages[currentPhotoIndex]; galleryImageEl.style.opacity = 1; }, 500); };
+            const updateGallery = () => {
+                if (photoGalleryImages.length > 0) {
+                    currentPhotoIndex = (currentPhotoIndex + 1) % photoGalleryImages.length;
+                    galleryImageEl.style.opacity = 0;
+                    setTimeout(() => { galleryImageEl.src = photoGalleryImages[currentPhotoIndex]; galleryImageEl.style.opacity = 1; }, 500);
+                }
+            };
             
-            // Initial calls on page load
-            loadList(); // This must be called to populate the list!
+            loadList();
             updateClock();
             setInterval(updateClock, 1000);
             showRandomCompliment();
