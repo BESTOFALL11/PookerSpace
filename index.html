@@ -27,11 +27,11 @@
         .widget-card h3 { font-family: 'Caveat', cursive; font-size: 1.8rem; color: var(--c-heading); margin-bottom: 1rem; } .countdown-card span { font-size: 2.2rem; font-weight: 600; } .countdown-card #countdown-timer { display: flex; justify-content: space-around; text-align: center; } .note-card p, .compliment-card p { font-size: 1.1rem; line-height: 1.7; font-style: italic; flex-grow: 1; } .gallery-card .gallery-image-container { width: 100%; height: 250px; border-radius: 1rem; overflow: hidden; background-color: rgba(255,255,255,0.2); } .gallery-card img { width: 100%; height: 100%; object-fit: cover; } .todo-card ul { list-style: none; padding-left: 0; flex-grow: 1; } .todo-card li { display: flex; align-items: center; margin-bottom: 0.8rem; font-size: 1rem; } .todo-card li label { flex-grow: 1; cursor: pointer; } .todo-card li .delete-btn { background: none; border: none; cursor: pointer; font-size: 0.8rem; opacity: 0.5; transition: opacity 0.2s; padding: 0.5rem; } .todo-card li .delete-btn:hover { opacity: 1; } .todo-card input[type="checkbox"] { margin-right: 0.75rem; accent-color: var(--c-accent); width: 18px; height: 18px; cursor: pointer; } .todo-card input[type="checkbox"]:checked + label { text-decoration: line-through; color: var(--c-accent); opacity: 0.7; } #add-item-form { display: flex; gap: 0.5rem; margin-top: 1rem; } #new-item-input { flex-grow: 1; border: 1px solid rgba(0,0,0,0.1); background: rgba(255,255,255,0.5); border-radius: 8px; padding: 0.5rem; color: var(--c-text); font-family: 'Poppins', sans-serif;} #new-item-input::placeholder { color: var(--c-text); opacity: 0.6; } #add-item-button { background: var(--c-accent); color: white; border: none; border-radius: 8px; padding: 0 1rem; font-weight: 600; cursor: pointer; transition: background 0.2s; font-size: 1.5rem; line-height: 1; } #add-item-button:hover { background: var(--c-heading); }
         .clock-card { text-align: center; justify-content: center; } .clock-card #live-clock { font-size: clamp(2.5rem, 10vw, 3.5rem); font-weight: 600; } .compliment-card { text-align: center; } #compliment-button { background: var(--c-accent); border: none; border-radius: 50%; width: 60px; height: 60px; cursor: pointer; display: flex; justify-content: center; align-items: center; margin: 1rem auto 0; transition: transform 0.2s ease; box-shadow: 0 4px 15px var(--c-shadow); } #compliment-button:hover { transform: scale(1.1); } #compliment-button svg { width: 30px; height: 30px; fill: white; }
         .kitty-parade { position: fixed; bottom: 0; left: 0; width: 100%; height: 60px; pointer-events: none; overflow: hidden; z-index: 1;} .kitty-container { display: flex; width: 200%; height: 100%; animation: scroll-left-final 30s linear infinite; } .kitty-container > div { display: flex; justify-content: space-around; width: 100%; align-items: center; } .kitty-container span { font-size: 2.5rem; text-shadow: 0 2px 4px rgba(0,0,0,0.1); } @keyframes scroll-left-final { from { transform: translateX(0%); } to { transform: translateX(-50%); } }
-        #flash-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 10002; pointer-events: none; opacity: 0; }
-        #anniversary-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 10000; display: flex; justify-content: center; align-items: center; background: radial-gradient(circle at center, #2e1a47, #1a0f29); opacity: 0; pointer-events: none; transition: opacity 1s ease-in-out; }
+        #flash-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 10002; pointer-events: none; opacity: 0; animation: flash-out 1s ease-in-out; } @keyframes flash-out{0%{opacity:1}100%{opacity:0}}
+        #anniversary-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 10000; display: flex; justify-content: flex-start; align-items: center; flex-direction: column; background: radial-gradient(circle at center, #2e1a47, #1a0f29); opacity: 0; pointer-events: none; transition: opacity 1s ease-in-out; overflow-y: auto; padding: 2rem 1rem; }
         #anniversary-overlay.visible { opacity: 1; pointer-events: all; }
-        #special-day-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
-        .anniversary-content { position: relative; z-index: 1; background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05)); padding: clamp(1rem, 5vw, 3rem); border-radius: 24px; max-width: 800px; width: 90%; max-height: 90vh; overflow-y: auto; text-align: center; color: #f0e8ff; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); box-shadow: 0 25px 50px -12px rgba(0,0,0,0.4); }
+        #special-day-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
+        .anniversary-content { position: relative; z-index: 1; background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05)); padding: clamp(1.5rem, 5vw, 3rem); border-radius: 24px; max-width: 800px; width: 100%; text-align: center; color: #f0e8ff; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); box-shadow: 0 25px 50px -12px rgba(0,0,0,0.4); margin: auto 0; }
         .anniversary-content > * { opacity: 0; animation: content-fade-in 1s ease-out forwards; }
         @keyframes content-fade-in { to { opacity: 1; transform: translateY(0); } }
         .anniversary-content h2 { font-family: 'Caveat', cursive; font-size: clamp(2.5rem, 8vw, 4rem); color: white; margin-bottom: 1rem; text-shadow: 0 0 15px rgba(255, 197, 240, 0.8); transform: translateY(20px); animation-delay: 0.5s; }
@@ -45,17 +45,11 @@
     </style>
 </head>
 <body>
-    <div id="flash-overlay"></div>
+    <div id="flash-overlay" style="display: none;"></div>
     <div class="background-effects">
         <div id="falling-elements-container"></div>
-        <div class="sun-container">
-            <svg class="sun-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="sunGradient"><stop offset="0%" stop-color="#FFF7B8" /><stop offset="100%" stop-color="#FFD450" /></radialGradient></defs><circle cx="50" cy="50" r="40" fill="url(#sunGradient)"/></svg>
-            <div class="sun-ray" style="--rotation: 0deg;"></div> <div class="sun-ray" style="--rotation: 45deg;"></div><div class="sun-ray" style="--rotation: 90deg;"></div> <div class="sun-ray" style="--rotation: 135deg;"></div><div class="sun-ray" style="--rotation: 180deg;"></div> <div class="sun-ray" style="--rotation: 225deg;"></div><div class="sun-ray" style="--rotation: 270deg;"></div> <div class="sun-ray" style="--rotation: 315deg;"></div>
-        </div>
-        <div class="moon-container">
-            <svg class="moon-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="moonGradient"><stop offset="0%" stop-color="#FFFFFF" /><stop offset="100%" stop-color="#E0E5F0" /></radialGradient></defs><path d="M 50 0 A 50 50 0 1 0 50 100 A 40 40 0 1 1 50 0 Z" fill="url(#moonGradient)"/></svg>
-            <div class="moon-ray" style="--rotation: 0deg;"></div> <div class="moon-ray" style="--rotation: 45deg;"></div><div class="moon-ray" style="--rotation: 90deg;"></div> <div class="moon-ray" style="--rotation: 135deg;"></div><div class="moon-ray" style="--rotation: 180deg;"></div> <div class="moon-ray" style="--rotation: 225deg;"></div><div class="moon-ray" style="--rotation: 270deg;"></div> <div class="moon-ray" style="--rotation: 315deg;"></div>
-        </div>
+        <div class="sun-container"><svg class="sun-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="sunGradient"><stop offset="0%" stop-color="#FFF7B8" /><stop offset="100%" stop-color="#FFD450" /></radialGradient></defs><circle cx="50" cy="50" r="40" fill="url(#sunGradient)"/></svg><div class="sun-ray" style="--rotation: 0deg;"></div> <div class="sun-ray" style="--rotation: 45deg;"></div><div class="sun-ray" style="--rotation: 90deg;"></div> <div class="sun-ray" style="--rotation: 135deg;"></div><div class="sun-ray" style="--rotation: 180deg;"></div> <div class="sun-ray" style="--rotation: 225deg;"></div><div class="sun-ray" style="--rotation: 270deg;"></div> <div class="sun-ray" style="--rotation: 315deg;"></div></div>
+        <div class="moon-container"><svg class="moon-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="moonGradient"><stop offset="0%" stop-color="#FFFFFF" /><stop offset="100%" stop-color="#E0E5F0" /></radialGradient></defs><path d="M 50 0 A 50 50 0 1 0 50 100 A 40 40 0 1 1 50 0 Z" fill="url(#moonGradient)"/></svg><div class="moon-ray" style="--rotation: 0deg;"></div> <div class="moon-ray" style="--rotation: 45deg;"></div><div class="moon-ray" style="--rotation: 90deg;"></div> <div class="moon-ray" style="--rotation: 135deg;"></div><div class="moon-ray" style="--rotation: 180deg;"></div> <div class="moon-ray" style="--rotation: 225deg;"></div><div class="moon-ray" style="--rotation: 270deg;"></div> <div class="moon-ray" style="--rotation: 315deg;"></div></div>
     </div>
     <div class="dashboard-container">
         <header class="dashboard-header"><div class="greeting-container"><h1 id="greeting-text">Hello, my beautiful pooker Timi!</h1></div></header>
@@ -69,21 +63,15 @@
         </main>
     </div>
     <div class="kitty-parade"><div class="kitty-container"><div><span>🐈</span><span>🐾</span><span>ᓚᘏᗢ</span><span>🐾</span><span>🐈</span><span>🐾</span><span>ᓚᘏᗢ</span></div><div><span>🐈</span><span>🐾</span><span>ᓚᘏᗢ</span><span>🐾</span><span>🐈</span><span>🐾</span><span>ᓚᘏᗢ</span></div></div></div>
-    
     <div id="anniversary-overlay">
         <canvas id="special-day-canvas"></canvas>
-        <div class="anniversary-content">
-            <h2 id="anniversary-title"></h2><p id="anniversary-message"></p>
-            <img id="anniversary-photo" src="" alt="Our special moment">
-            <div class="anniversary-song" id="anniversary-song-embed"></div>
-            <button id="close-anniversary-btn">❤️</button>
-        </div>
+        <div class="anniversary-content"><h2 id="anniversary-title"></h2><p id="anniversary-message"></p><img id="anniversary-photo" src="" alt="Our special moment"><div class="anniversary-song" id="anniversary-song-embed"></div><button id="close-anniversary-btn">❤️</button></div>
     </div>
     
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const anniversaryConfig = { title: "Happy Anniversary, My Love!", message: "A year ago today, my life changed for the better because you became a part of it. This past year with you has been the best of my life. Every day feels like a dream, and I can't wait to spend all our future anniversaries together. I love you more than words can say, my beautiful Pooker.", photo: "images/photo1.jpg", songUrl: "https://www.youtube.com/embed/IZ_g6h1vA4s" };
-            // SIMULATION: This is set to true to instantly trigger the anniversary event.
+            // THE ONLY DIFFERENCE IS THIS LINE:
             const isSimulation = true;
             const root = document.documentElement, sunContainer = document.querySelector('.sun-container'), moonContainer = document.querySelector('.moon-container'), fallingElementsContainer = document.getElementById('falling-elements-container'), funList = document.getElementById('fun-list'), addItemForm = document.getElementById('add-item-form'), newItemInput = document.getElementById('new-item-input'), complimentTextEl = document.getElementById('compliment-text'), complimentButtonEl = document.getElementById('compliment-button'), greetingTextEl = document.getElementById('greeting-text'), clockElement = document.getElementById('live-clock'), dateElement = document.getElementById('current-date'), galleryImageEl = document.getElementById('gallery-image'), dashboardContainer = document.querySelector('.dashboard-container'), anniversaryOverlay = document.getElementById('anniversary-overlay'), closeAnniversaryBtn = document.getElementById('close-anniversary-btn');
             const countdownDate = new Date(new Date().getFullYear(), 8, 3).getTime();
@@ -95,11 +83,11 @@
             function Particle() { this.x = Math.random() * canvas.width; this.y = -10; this.size = Math.random() * 3 + 1; this.speed = Math.random() * 2 + 1; this.color = `hsla(${Math.random() * 60 + 300}, 100%, 80%, ${Math.random() * 0.5 + 0.5})`; this.char = ['✨', '💖'][Math.floor(Math.random() * 2)]; }
             Particle.prototype.update = function() { this.y += this.speed; if (this.y > canvas.height) { this.y = -10; this.x = Math.random() * canvas.width; } }; Particle.prototype.draw = function() { ctx.fillStyle = this.color; ctx.font = `${this.size * 10}px serif`; ctx.fillText(this.char, this.x, this.y); };
             function animateParticles() { ctx.clearRect(0, 0, canvas.width, canvas.height); for (let i = 0; i < particles.length; i++) { particles[i].update(); particles[i].draw(); } animationFrameId = requestAnimationFrame(animateParticles); }
-            function startAnniversaryAnimation() { resizeCanvas(); particles = []; for (let i = 0; i < 75; i++) { particles.push(new Particle()); } animateParticles(); }
+            function startAnniversaryAnimation() { resizeCanvas(); particles = []; for (let i = 0; i < 50; i++) { particles.push(new Particle()); } animateParticles(); }
             function stopAnniversaryAnimation() { cancelAnimationFrame(animationFrameId); }
             function showAnniversarySurprise() {
                 const flash = document.getElementById('flash-overlay');
-                if(flash) { flash.style.animation = 'flash 1s ease-out'; setTimeout(() => flash.remove(), 1000); }
+                if(flash) { flash.style.display = 'block'; setTimeout(() => flash.remove(), 1000); }
                 setTimeout(() => { document.getElementById('anniversary-title').textContent = anniversaryConfig.title; document.getElementById('anniversary-message').textContent = anniversaryConfig.message; document.getElementById('anniversary-photo').src = anniversaryConfig.photo; document.getElementById('anniversary-song-embed').innerHTML = `<iframe src="${anniversaryConfig.songUrl}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`; dashboardContainer.classList.add('hidden'); anniversaryOverlay.classList.add('visible'); startAnniversaryAnimation(); }, 300);
             }
             closeAnniversaryBtn.addEventListener('click', () => { dashboardContainer.classList.remove('hidden'); anniversaryOverlay.classList.remove('visible'); stopAnniversaryAnimation(); });
