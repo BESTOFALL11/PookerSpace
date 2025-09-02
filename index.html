@@ -3,335 +3,132 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Special Place for Pooker ♡</title>
+    <title>A Special Place for Pooker ♡ (PREVIEW)</title>
     
     <style>
-        /* --- FINAL MOBILE-OPTIMIZED AESTHETICS --- */
+        /* CSS is identical for both files */
         @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500&family=Poppins:wght@400;600&display=swap');
-
-        :root {
-            --c-bg-start: #fde4ea; --c-bg-end: #d8b4fe;
-            --c-widget: rgba(255, 255, 255, 0.4);
-            --c-widget-border: rgba(255, 255, 255, 0.6);
-            --c-text: #4a4158; --c-heading: #c77d97; --c-accent: #e87a90;
-            --c-shadow: rgba(199, 125, 151, 0.1);
-            --glow-color: rgba(255, 227, 236, 0.15);
-            --mouse-x: 50%; --mouse-y: 50%;
-        }
-
+        :root { --c-bg-start: #fde4ea; --c-bg-end: #d8b4fe; --c-widget: rgba(255, 255, 255, 0.4); --c-widget-border: rgba(255, 255, 255, 0.6); --c-text: #4a4158; --c-heading: #c77d97; --c-accent: #e87a90; --c-shadow: rgba(199, 125, 151, 0.1); --glow-color: rgba(255, 227, 236, 0.15); --mouse-x: 50%; --mouse-y: 50%; }
         * { box-sizing: border-box; margin: 0; padding: 0; }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            color: var(--c-text);
-            background-color: #fcefee;
-            background-image: linear-gradient(45deg, var(--c-bg-start), var(--c-bg-end));
-            animation: gradient-animation 20s ease infinite;
-            min-height: 100vh; padding: clamp(1rem, 5vw, 1rem);
-            background-size: 200% 200%;
-            /* overflow: hidden; IS REMOVED TO ALLOW SCROLLING */
-        }
+        body { font-family: 'Poppins', sans-serif; color: var(--c-text); background-color: #fcefee; background-image: linear-gradient(45deg, var(--c-bg-start), var(--c-bg-end)); animation: gradient-animation 20s ease infinite; min-height: 100vh; padding: clamp(1rem, 5vw, 2rem); background-size: 200% 200%; }
         @keyframes gradient-animation { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-
-        /* NEW: Wrapper for all fixed background effects */
-        .background-effects {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none;
-            overflow: hidden;
-            z-index: 0;
-        }
-
-        /* Lighting effect moved to the new wrapper */
-        .background-effects::before {
-            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-            background: radial-gradient(circle 350px at var(--mouse-x) var(--mouse-y), var(--glow-color), transparent);
-            transition: background 0.2s ease-out;
-        }
-        
-        .sun-container, .moon-container {
-            position: absolute; top: 20px; left: 20px;
-            width: 120px; height: 120px;
-            animation: rotate-effect 120s linear infinite;
-        }
-        .moon-container { display: none; }
-        .sun-svg, .moon-svg { width: 100%; height: 100%; }
-        .sun-svg { filter: drop-shadow(0 0 15px rgba(255, 230, 150, 0.8)); }
-        .moon-svg { filter: drop-shadow(0 0 15px rgba(210, 230, 255, 0.8)); }
-        
-        .sun-ray, .moon-ray { position: absolute; top: 50%; left: 50%; width: 2px; transform-origin: top center; border-radius: 2px; }
-        .sun-ray { height: 200px; background: linear-gradient(to bottom, rgba(255, 238, 179, 0.6), transparent); animation: pulse-ray 5s ease-in-out infinite; }
-        .moon-ray { height: 180px; background: linear-gradient(to bottom, rgba(230, 240, 255, 0.5), transparent); animation: pulse-moon-ray 6s ease-in-out infinite; }
-        
-        .sun-ray:nth-child(even), .moon-ray:nth-child(even) { animation-delay: -1s; } .sun-ray:nth-child(odd), .moon-ray:nth-child(odd) { animation-delay: -2.5s; }
-
-        @keyframes pulse-ray { 0%, 100% { opacity: 0.3; transform: scaleY(0.8) rotate(var(--rotation)); } 50% { opacity: 0.7; transform: scaleY(1) rotate(var(--rotation)); } }
-        @keyframes pulse-moon-ray { 0%, 100% { opacity: 0.2; transform: scaleY(0.9) rotate(var(--rotation)); } 50% { opacity: 0.5; transform: scaleY(1) rotate(var(--rotation)); } }
-        @keyframes rotate-effect { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-
-        #falling-elements-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
-        .falling-element { position: absolute; top: -10%; font-size: 1.5rem; animation: fall linear; }
-        @keyframes fall { to { transform: translateY(110vh) rotate(360deg); opacity: 0; } }
-
-        .dashboard-container { max-width: 1200px; margin: 0 auto; position: relative; z-index: 2; }
-        .interactive-trail-char { position: fixed; font-size: 2rem; pointer-events: none; z-index: 9999; animation: bloomAndFade 1.2s ease-out forwards; text-shadow: 0 0 5px rgba(255,255,255,0.7); }
-        @keyframes bloomAndFade { 0% { transform: scale(0); } 50% { transform: scale(1.2); } 100% { transform: scale(0); opacity: 0; } }
-
-        .dashboard-header { text-align: center; margin-bottom: 1rem; }
-        .greeting-container h1 { font-family: 'Caveat', cursive; font-size: clamp(3rem, 10vw, 5rem); color: white; font-weight: 500; text-shadow: 0 4px 15px rgba(0,0,0,0.2); }
-        
-        .dashboard-grid { 
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
-            gap: 2rem; perspective: 2000px;
-        }
-
-        .widget-card {
-            background: var(--c-widget); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%);
-            border-radius: 24px; padding: 1.5rem; border: 1px solid var(--c-widget-border);
-            box-shadow: inset 0 1px 1px rgba(255,255,255,0.5), 0 2px 5px rgba(0,0,0,0.05), 0 25px 50px -12px rgba(0,0,0,0.15);
-            transition: transform 0.4s ease-out, box-shadow 0.4s ease-out; display: flex; flex-direction: column;
-        }
-
-        @media (hover: hover) and (pointer: fine) {
-            .widget-card:hover {
-                transform: translateY(-10px) rotateX(2deg) rotateY(3deg) scale(1.03);
-                box-shadow: inset 0 1px 1px rgba(255,255,255,0.5), 0 2px 5px rgba(0,0,0,0.1), 0 40px 70px -15px rgba(0,0,0,0.2);
-            }
-        }
-        
-        .widget-card h3 { font-family: 'Caveat', cursive; font-size: 1.8rem; color: var(--c-heading); margin-bottom: 1rem; }
-        .countdown-card span { font-size: 2.2rem; font-weight: 600; }
-        .countdown-card #countdown-timer { display: flex; justify-content: space-around; text-align: center; }
-        .note-card p, .compliment-card p { font-size: 1.1rem; line-height: 1.7; font-style: italic; flex-grow: 1; }
-        .gallery-card .gallery-image-container { width: 100%; height: 250px; border-radius: 1rem; overflow: hidden; background-color: rgba(255,255,255,0.2); }
-        .gallery-card img { width: 100%; height: 100%; object-fit: cover; }
-        
-        .todo-card ul { list-style: none; padding-left: 0; flex-grow: 1; }
-        .todo-card li { display: flex; align-items: center; margin-bottom: 0.8rem; font-size: 1rem; }
-        .todo-card li label { flex-grow: 1; cursor: pointer; }
-        .todo-card li .delete-btn { background: none; border: none; cursor: pointer; font-size: 0.8rem; opacity: 0.5; transition: opacity 0.2s; padding: 0.5rem; }
-        .todo-card li .delete-btn:hover { opacity: 1; }
-        .todo-card input[type="checkbox"] { margin-right: 0.75rem; accent-color: var(--c-accent); width: 18px; height: 18px; cursor: pointer; }
-        .todo-card input[type="checkbox"]:checked + label { text-decoration: line-through; color: var(--c-accent); opacity: 0.7; }
-        #add-item-form { display: flex; gap: 0.5rem; margin-top: 1rem; }
-        #new-item-input { flex-grow: 1; border: 1px solid rgba(0,0,0,0.1); background: rgba(255,255,255,0.5); border-radius: 8px; padding: 0.5rem; color: var(--c-text); font-family: 'Poppins', sans-serif;}
-        #new-item-input::placeholder { color: var(--c-text); opacity: 0.6; }
-        #add-item-button { background: var(--c-accent); color: white; border: none; border-radius: 8px; padding: 0 1rem; font-weight: 600; cursor: pointer; transition: background 0.2s; font-size: 1.5rem; line-height: 1; }
-        #add-item-button:hover { background: var(--c-heading); }
-
-        .clock-card { text-align: center; justify-content: center; }
-        .clock-card #live-clock { font-size: clamp(2.5rem, 10vw, 3.5rem); font-weight: 600; }
-        .compliment-card { text-align: center; }
-        #compliment-button { background: var(--c-accent); border: none; border-radius: 50%; width: 60px; height: 60px; cursor: pointer; display: flex; justify-content: center; align-items: center; margin: 1rem auto 0; transition: transform 0.2s ease; box-shadow: 0 4px 15px var(--c-shadow); }
-        #compliment-button:hover { transform: scale(1.1); }
-        #compliment-button svg { width: 30px; height: 30px; fill: white; }
-
-        .kitty-parade { position: fixed; bottom: 0; left: 0; width: 100%; height: 60px; pointer-events: none; overflow: hidden; z-index: 1;}
-        .kitty-container { display: flex; width: 200%; height: 100%; animation: scroll-left-final 30s linear infinite; }
-        .kitty-container > div { display: flex; justify-content: space-around; width: 100%; align-items: center; }
-        .kitty-container span { font-size: 2.5rem; text-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        @keyframes scroll-left-final { from { transform: translateX(0%); } to { transform: translateX(-50%); } }
+        .background-effects { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; overflow: hidden; z-index: 0; }
+        .background-effects::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(circle 350px at var(--mouse-x) var(--mouse-y), var(--glow-color), transparent); transition: background 0.2s ease-out; }
+        .sun-container, .moon-container { position: absolute; top: 20px; left: 20px; width: 120px; height: 120px; animation: rotate-effect 120s linear infinite; } .moon-container { display: none; } .sun-svg, .moon-svg { width: 100%; height: 100%; } .sun-svg { filter: drop-shadow(0 0 15px rgba(255, 230, 150, 0.8)); } .moon-svg { filter: drop-shadow(0 0 15px rgba(210, 230, 255, 0.8)); } .sun-ray, .moon-ray { position: absolute; top: 50%; left: 50%; width: 2px; transform-origin: top center; border-radius: 2px; } .sun-ray { height: 200px; background: linear-gradient(to bottom, rgba(255, 238, 179, 0.6), transparent); animation: pulse-ray 5s ease-in-out infinite; } .moon-ray { height: 180px; background: linear-gradient(to bottom, rgba(230, 240, 255, 0.5), transparent); animation: pulse-moon-ray 6s ease-in-out infinite; } .sun-ray:nth-child(even), .moon-ray:nth-child(even) { animation-delay: -1s; } .sun-ray:nth-child(odd), .moon-ray:nth-child(odd) { animation-delay: -2.5s; }
+        @keyframes pulse-ray { 0%, 100% { opacity: 0.3; transform: scaleY(0.8) rotate(var(--rotation)); } 50% { opacity: 0.7; transform: scaleY(1) rotate(var(--rotation)); } } @keyframes pulse-moon-ray { 0%, 100% { opacity: 0.2; transform: scaleY(0.9) rotate(var(--rotation)); } 50% { opacity: 0.5; transform: scaleY(1) rotate(var(--rotation)); } } @keyframes rotate-effect { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        #falling-elements-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; } .falling-element { position: absolute; top: -10%; font-size: 1.5rem; animation: fall linear; } @keyframes fall { to { transform: translateY(110vh) rotate(360deg); opacity: 0; } }
+        .dashboard-container { max-width: 1200px; margin: 0 auto; position: relative; z-index: 2; transition: opacity 0.5s ease-out, filter 0.5s ease-out; }
+        .dashboard-container.hidden { opacity: 0; filter: blur(10px); pointer-events: none; }
+        .interactive-trail-char { position: fixed; font-size: 2rem; pointer-events: none; z-index: 9999; animation: bloomAndFade 1.2s ease-out forwards; text-shadow: 0 0 5px rgba(255,255,255,0.7); } @keyframes bloomAndFade { 0% { transform: scale(0); } 50% { transform: scale(1.2); } 100% { transform: scale(0); opacity: 0; } }
+        .dashboard-header { text-align: center; margin-bottom: 2rem; } .greeting-container h1 { font-family: 'Caveat', cursive; font-size: clamp(3rem, 10vw, 5rem); color: white; font-weight: 500; text-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+        .dashboard-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; perspective: 2000px; }
+        .widget-card { background: var(--c-widget); backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%); border-radius: 24px; padding: 1.5rem; border: 1px solid var(--c-widget-border); box-shadow: inset 0 1px 1px rgba(255,255,255,0.5), 0 2px 5px rgba(0,0,0,0.05), 0 25px 50px -12px rgba(0,0,0,0.15); transition: transform 0.4s ease-out, box-shadow 0.4s ease-out; display: flex; flex-direction: column; }
+        @media (hover: hover) and (pointer: fine) { .widget-card:hover { transform: translateY(-10px) rotateX(2deg) rotateY(3deg) scale(1.03); box-shadow: inset 0 1px 1px rgba(255,255,255,0.5), 0 2px 5px rgba(0,0,0,0.1), 0 40px 70px -15px rgba(0,0,0,0.2); } }
+        .widget-card h3 { font-family: 'Caveat', cursive; font-size: 1.8rem; color: var(--c-heading); margin-bottom: 1rem; } .countdown-card span { font-size: 2.2rem; font-weight: 600; } .countdown-card #countdown-timer { display: flex; justify-content: space-around; text-align: center; } .note-card p, .compliment-card p { font-size: 1.1rem; line-height: 1.7; font-style: italic; flex-grow: 1; } .gallery-card .gallery-image-container { width: 100%; height: 250px; border-radius: 1rem; overflow: hidden; background-color: rgba(255,255,255,0.2); } .gallery-card img { width: 100%; height: 100%; object-fit: cover; } .todo-card ul { list-style: none; padding-left: 0; flex-grow: 1; } .todo-card li { display: flex; align-items: center; margin-bottom: 0.8rem; font-size: 1rem; } .todo-card li label { flex-grow: 1; cursor: pointer; } .todo-card li .delete-btn { background: none; border: none; cursor: pointer; font-size: 0.8rem; opacity: 0.5; transition: opacity 0.2s; padding: 0.5rem; } .todo-card li .delete-btn:hover { opacity: 1; } .todo-card input[type="checkbox"] { margin-right: 0.75rem; accent-color: var(--c-accent); width: 18px; height: 18px; cursor: pointer; } .todo-card input[type="checkbox"]:checked + label { text-decoration: line-through; color: var(--c-accent); opacity: 0.7; } #add-item-form { display: flex; gap: 0.5rem; margin-top: 1rem; } #new-item-input { flex-grow: 1; border: 1px solid rgba(0,0,0,0.1); background: rgba(255,255,255,0.5); border-radius: 8px; padding: 0.5rem; color: var(--c-text); font-family: 'Poppins', sans-serif;} #new-item-input::placeholder { color: var(--c-text); opacity: 0.6; } #add-item-button { background: var(--c-accent); color: white; border: none; border-radius: 8px; padding: 0 1rem; font-weight: 600; cursor: pointer; transition: background 0.2s; font-size: 1.5rem; line-height: 1; } #add-item-button:hover { background: var(--c-heading); }
+        .clock-card { text-align: center; justify-content: center; } .clock-card #live-clock { font-size: clamp(2.5rem, 10vw, 3.5rem); font-weight: 600; } .compliment-card { text-align: center; } #compliment-button { background: var(--c-accent); border: none; border-radius: 50%; width: 60px; height: 60px; cursor: pointer; display: flex; justify-content: center; align-items: center; margin: 1rem auto 0; transition: transform 0.2s ease; box-shadow: 0 4px 15px var(--c-shadow); } #compliment-button:hover { transform: scale(1.1); } #compliment-button svg { width: 30px; height: 30px; fill: white; }
+        .kitty-parade { position: fixed; bottom: 0; left: 0; width: 100%; height: 60px; pointer-events: none; overflow: hidden; z-index: 1;} .kitty-container { display: flex; width: 200%; height: 100%; animation: scroll-left-final 30s linear infinite; } .kitty-container > div { display: flex; justify-content: space-around; width: 100%; align-items: center; } .kitty-container span { font-size: 2.5rem; text-shadow: 0 2px 4px rgba(0,0,0,0.1); } @keyframes scroll-left-final { from { transform: translateX(0%); } to { transform: translateX(-50%); } }
+        #flash-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 10002; pointer-events: none; opacity: 0; }
+        #anniversary-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 10000; display: flex; justify-content: center; align-items: center; background: radial-gradient(circle at center, #2e1a47, #1a0f29); opacity: 0; pointer-events: none; transition: opacity 1s ease-in-out; }
+        #anniversary-overlay.visible { opacity: 1; pointer-events: all; }
+        #special-day-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
+        .anniversary-content { position: relative; z-index: 1; background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05)); padding: clamp(1rem, 5vw, 3rem); border-radius: 24px; max-width: 800px; width: 90%; max-height: 90vh; overflow-y: auto; text-align: center; color: #f0e8ff; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); box-shadow: 0 25px 50px -12px rgba(0,0,0,0.4); }
+        .anniversary-content > * { opacity: 0; animation: content-fade-in 1s ease-out forwards; }
+        @keyframes content-fade-in { to { opacity: 1; transform: translateY(0); } }
+        .anniversary-content h2 { font-family: 'Caveat', cursive; font-size: clamp(2.5rem, 8vw, 4rem); color: white; margin-bottom: 1rem; text-shadow: 0 0 15px rgba(255, 197, 240, 0.8); transform: translateY(20px); animation-delay: 0.5s; }
+        .anniversary-content p { font-size: 1.1rem; line-height: 1.8; margin-bottom: 1.5rem; transform: translateY(20px); animation-delay: 0.8s; }
+        .anniversary-photo { width: 100%; max-width: 300px; border-radius: 16px; margin: 0 auto 1.5rem; box-shadow: 0 10px 30px rgba(0,0,0,0.3); transform: translateY(20px); animation-delay: 1.1s; filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3)); }
+        .anniversary-song { transform: translateY(20px); animation-delay: 1.4s; }
+        .anniversary-song iframe { width: 100%; max-width: 400px; height: 150px; border-radius: 12px; border: none; margin: 0 auto 1.5rem; }
+        #close-anniversary-btn { background: none; color: white; border: 2px solid rgba(255,255,255,0.5); border-radius: 50%; width: 60px; height: 60px; cursor: pointer; transition: all 0.3s; font-family: 'Poppins', sans-serif; font-size: 1.5rem; animation-delay: 1.7s; animation-name: content-fade-in, pulse-heart; animation-duration: 1s, 2s; animation-iteration-count: 1, infinite; }
+        #close-anniversary-btn:hover { background: rgba(255,255,255,0.2); border-color: white; transform: scale(1.1); }
+        @keyframes pulse-heart { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08); } }
     </style>
 </head>
 <body>
-    
+    <div id="flash-overlay"></div>
     <div class="background-effects">
         <div id="falling-elements-container"></div>
         <div class="sun-container">
-            <svg class="sun-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <defs><radialGradient id="sunGradient"><stop offset="0%" stop-color="#FFF7B8" /><stop offset="100%" stop-color="#FFD450" /></radialGradient></defs>
-                <circle cx="50" cy="50" r="40" fill="url(#sunGradient)"/>
-            </svg>
-            <div class="sun-ray" style="--rotation: 0deg;"></div> <div class="sun-ray" style="--rotation: 45deg;"></div>
-            <div class="sun-ray" style="--rotation: 90deg;"></div> <div class="sun-ray" style="--rotation: 135deg;"></div>
-            <div class="sun-ray" style="--rotation: 180deg;"></div> <div class="sun-ray" style="--rotation: 225deg;"></div>
-            <div class="sun-ray" style="--rotation: 270deg;"></div> <div class="sun-ray" style="--rotation: 315deg;"></div>
+            <svg class="sun-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="sunGradient"><stop offset="0%" stop-color="#FFF7B8" /><stop offset="100%" stop-color="#FFD450" /></radialGradient></defs><circle cx="50" cy="50" r="40" fill="url(#sunGradient)"/></svg>
+            <div class="sun-ray" style="--rotation: 0deg;"></div> <div class="sun-ray" style="--rotation: 45deg;"></div><div class="sun-ray" style="--rotation: 90deg;"></div> <div class="sun-ray" style="--rotation: 135deg;"></div><div class="sun-ray" style="--rotation: 180deg;"></div> <div class="sun-ray" style="--rotation: 225deg;"></div><div class="sun-ray" style="--rotation: 270deg;"></div> <div class="sun-ray" style="--rotation: 315deg;"></div>
         </div>
         <div class="moon-container">
-            <svg class="moon-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <defs><radialGradient id="moonGradient"><stop offset="0%" stop-color="#FFFFFF" /><stop offset="100%" stop-color="#E0E5F0" /></radialGradient></defs>
-                <path d="M 50 0 A 50 50 0 1 0 50 100 A 40 40 0 1 1 50 0 Z" fill="url(#moonGradient)"/>
-            </svg>
-            <div class="moon-ray" style="--rotation: 0deg;"></div> <div class="moon-ray" style="--rotation: 45deg;"></div>
-            <div class="moon-ray" style="--rotation: 90deg;"></div> <div class="moon-ray" style="--rotation: 135deg;"></div>
-            <div class="moon-ray" style="--rotation: 180deg;"></div> <div class="moon-ray" style="--rotation: 225deg;"></div>
-            <div class="moon-ray" style="--rotation: 270deg;"></div> <div class="moon-ray" style="--rotation: 315deg;"></div>
+            <svg class="moon-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="moonGradient"><stop offset="0%" stop-color="#FFFFFF" /><stop offset="100%" stop-color="#E0E5F0" /></radialGradient></defs><path d="M 50 0 A 50 50 0 1 0 50 100 A 40 40 0 1 1 50 0 Z" fill="url(#moonGradient)"/></svg>
+            <div class="moon-ray" style="--rotation: 0deg;"></div> <div class="moon-ray" style="--rotation: 45deg;"></div><div class="moon-ray" style="--rotation: 90deg;"></div> <div class="moon-ray" style="--rotation: 135deg;"></div><div class="moon-ray" style="--rotation: 180deg;"></div> <div class="moon-ray" style="--rotation: 225deg;"></div><div class="moon-ray" style="--rotation: 270deg;"></div> <div class="moon-ray" style="--rotation: 315deg;"></div>
         </div>
     </div>
-
     <div class="dashboard-container">
-        <header class="dashboard-header">
-            <div class="greeting-container">
-                <h1 id="greeting-text">Hello, my beautiful pooker Timi!</h1>
-            </div>
-        </header>
-
+        <header class="dashboard-header"><div class="greeting-container"><h1 id="greeting-text">Hello, my beautiful pooker Timi!</h1></div></header>
         <main class="dashboard-grid">
-            <div class="widget-card countdown-card">
-                <h3>Our 1 Year Anniversary</h3>
-                <div id="countdown-timer">
-                    <div><span id="days">00</span>Days</div> <div><span id="hours">00</span>Hours</div>
-                    <div><span id="minutes">00</span>Mins</div> <div><span id="seconds">00</span>Secs</div>
-                </div>
-            </div>
-            <div class="widget-card compliment-card">
-                <h3>For You...</h3>
-                <p id="compliment-text">Click the heart for a surprise!</p>
-                <button id="compliment-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button>
-            </div>
-            <div class="widget-card gallery-card">
-                <h3>Our Best Moments</h3>
-                <div class="gallery-image-container">
-                    <img id="gallery-image" src="images/photo1.jpg" alt="A cute photo of us">
-                </div>
-            </div>
-            <div class="widget-card note-card">
-                 <h3>A Little Note For You</h3>
-                <p>I wanted to make a special place website for us, a little special place for you to come and see all the things we have done and what to look forward to. I love you more than all the stars my beautiful pooker!</p>
-            </div>
-            <div class="widget-card todo-card">
-                <h3>Our Fun List ♡</h3>
-                <ul id="fun-list"></ul>
-                <form id="add-item-form">
-                    <input type="text" id="new-item-input" placeholder="New fun thing..." autocomplete="off">
-                    <button type="submit" id="add-item-button">+</button>
-                </form>
-            </div>
-            <div class="widget-card clock-card">
-                <div id="live-clock">12:00:00 PM</div>
-                <div id="current-date">A beautiful day</div>
-            </div>
+            <div class="widget-card countdown-card"><h3>Our 1 Year Anniversary</h3><div id="countdown-timer"><div><span id="days">00</span>Days</div> <div><span id="hours">00</span>Hours</div><div><span id="minutes">00</span>Mins</div> <div><span id="seconds">00</span>Secs</div></div></div>
+            <div class="widget-card compliment-card"><h3>For You...</h3><p id="compliment-text">Click the heart for a surprise!</p><button id="compliment-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button></div>
+            <div class="widget-card gallery-card"><h3>Our Best Moments</h3><div class="gallery-image-container"><img id="gallery-image" src="images/photo1.jpg" alt="A cute photo of us"></div></div>
+            <div class="widget-card note-card"><h3>A Little Note For You</h3><p>I wanted to make a special place website for us, a little special place for you to come and see all the things we have done and what to look forward to. I love you more than all the stars my beautiful pooker!</p></div>
+            <div class="widget-card todo-card"><h3>Our Fun List ♡</h3><ul id="fun-list"></ul><form id="add-item-form"><input type="text" id="new-item-input" placeholder="New fun thing..." autocomplete="off"><button type="submit" id="add-item-button">+</button></form></div>
+            <div class="widget-card clock-card"><h3>&nbsp;</h3><div id="live-clock">12:00:00 PM</div><div id="current-date">A beautiful day</div></div>
         </main>
     </div>
-
-    <div class="kitty-parade">
-        <div class="kitty-container">
-            <div><span>🐈</span><span>🐾</span><span>ᓚᘏᗢ</span><span>🐾</span><span>🐈</span><span>🐾</span><span>ᓚᘏᗢ</span></div>
-            <div><span>🐈</span><span>🐾</span><span>ᓚᘏᗢ</span><span>🐾</span><span>🐈</span><span>🐾</span><span>ᓚᘏᗢ</span></div>
+    <div class="kitty-parade"><div class="kitty-container"><div><span>🐈</span><span>🐾</span><span>ᓚᘏᗢ</span><span>🐾</span><span>🐈</span><span>🐾</span><span>ᓚᘏᗢ</span></div><div><span>🐈</span><span>🐾</span><span>ᓚᘏᗢ</span><span>🐾</span><span>🐈</span><span>🐾</span><span>ᓚᘏᗢ</span></div></div></div>
+    
+    <div id="anniversary-overlay">
+        <canvas id="special-day-canvas"></canvas>
+        <div class="anniversary-content">
+            <h2 id="anniversary-title"></h2><p id="anniversary-message"></p>
+            <img id="anniversary-photo" src="" alt="Our special moment">
+            <div class="anniversary-song" id="anniversary-song-embed"></div>
+            <button id="close-anniversary-btn">❤️</button>
         </div>
     </div>
     
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const root = document.documentElement;
-            const sunContainer = document.querySelector('.sun-container');
-            const moonContainer = document.querySelector('.moon-container');
-            const fallingElementsContainer = document.querySelector('#falling-elements-container');
-            const funList = document.getElementById('fun-list');
-            const addItemForm = document.getElementById('add-item-form');
-            const newItemInput = document.getElementById('new-item-input');
-            const complimentTextEl = document.getElementById('compliment-text');
-            const complimentButtonEl = document.getElementById('compliment-button');
-            const greetingTextEl = document.getElementById('greeting-text');
-            const clockElement = document.getElementById('live-clock');
-            const dateElement = document.getElementById('current-date');
-            const galleryImageEl = document.getElementById('gallery-image');
-
+            const anniversaryConfig = { title: "Happy Anniversary, My Love!", message: "A year ago today, my life changed for the better because you became a part of it. This past year with you has been the best of my life. Every day feels like a dream, and I can't wait to spend all our future anniversaries together. I love you more than words can say, my beautiful Pooker.", photo: "images/photo1.jpg", songUrl: "https://www.youtube.com/embed/IZ_g6h1vA4s" };
+            // SIMULATION: This is set to true to instantly trigger the anniversary event.
+            const isSimulation = true;
+            const root = document.documentElement, sunContainer = document.querySelector('.sun-container'), moonContainer = document.querySelector('.moon-container'), fallingElementsContainer = document.getElementById('falling-elements-container'), funList = document.getElementById('fun-list'), addItemForm = document.getElementById('add-item-form'), newItemInput = document.getElementById('new-item-input'), complimentTextEl = document.getElementById('compliment-text'), complimentButtonEl = document.getElementById('compliment-button'), greetingTextEl = document.getElementById('greeting-text'), clockElement = document.getElementById('live-clock'), dateElement = document.getElementById('current-date'), galleryImageEl = document.getElementById('gallery-image'), dashboardContainer = document.querySelector('.dashboard-container'), anniversaryOverlay = document.getElementById('anniversary-overlay'), closeAnniversaryBtn = document.getElementById('close-anniversary-btn');
             const countdownDate = new Date(new Date().getFullYear(), 8, 3).getTime();
-            const girlfriendName = "Pooker";
             const compliments = ["I love you my little poooper", "M-AU", "Hello green eyed Pooker", "Miu Miu Miu", "I sens LOVEEEEE", "Each time u press the button u give a virtual kissy kiss", "Peter and Pooker loves you"];
             const photoGalleryImages = ["images/photo1.jpg", "images/photo2.jpg", "images/photo3.jpg", "images/photo4.jpg", "images/photo5.jpg", "images/photo6.jpg", "images/photo7.jpg", "images/photo8.jpg", "images/photo9.jpg", "images/photo10.jpg", "images/photo11.jpg", "images/photo12.jpg", "images/photo13.jpg", "images/photo14.jpg", "images/photo15.jpg"];
-
-            function handleSunMoon() {
-                const currentHour = new Date().getHours();
-                const isNight = currentHour >= 19 || currentHour < 6;
-                if (isNight) {
-                    sunContainer.style.display = 'none';
-                    moonContainer.style.display = 'block';
-                    greetingTextEl.textContent = `Good evening, my beautiful pooker Timi!`;
-                } else {
-                    sunContainer.style.display = 'block';
-                    moonContainer.style.display = 'none';
-                    greetingTextEl.textContent = currentHour < 12 ? `Good morning, my beautiful pooker Timi!` : `Good afternoon, my beautiful pooker Timi!`;
+            const canvas = document.getElementById('special-day-canvas'), ctx = canvas.getContext('2d');
+            let particles = [], animationFrameId;
+            function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+            function Particle() { this.x = Math.random() * canvas.width; this.y = -10; this.size = Math.random() * 3 + 1; this.speed = Math.random() * 2 + 1; this.color = `hsla(${Math.random() * 60 + 300}, 100%, 80%, ${Math.random() * 0.5 + 0.5})`; this.char = ['✨', '💖'][Math.floor(Math.random() * 2)]; }
+            Particle.prototype.update = function() { this.y += this.speed; if (this.y > canvas.height) { this.y = -10; this.x = Math.random() * canvas.width; } }; Particle.prototype.draw = function() { ctx.fillStyle = this.color; ctx.font = `${this.size * 10}px serif`; ctx.fillText(this.char, this.x, this.y); };
+            function animateParticles() { ctx.clearRect(0, 0, canvas.width, canvas.height); for (let i = 0; i < particles.length; i++) { particles[i].update(); particles[i].draw(); } animationFrameId = requestAnimationFrame(animateParticles); }
+            function startAnniversaryAnimation() { resizeCanvas(); particles = []; for (let i = 0; i < 75; i++) { particles.push(new Particle()); } animateParticles(); }
+            function stopAnniversaryAnimation() { cancelAnimationFrame(animationFrameId); }
+            function showAnniversarySurprise() {
+                const flash = document.getElementById('flash-overlay');
+                if(flash) { flash.style.animation = 'flash 1s ease-out'; setTimeout(() => flash.remove(), 1000); }
+                setTimeout(() => { document.getElementById('anniversary-title').textContent = anniversaryConfig.title; document.getElementById('anniversary-message').textContent = anniversaryConfig.message; document.getElementById('anniversary-photo').src = anniversaryConfig.photo; document.getElementById('anniversary-song-embed').innerHTML = `<iframe src="${anniversaryConfig.songUrl}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`; dashboardContainer.classList.add('hidden'); anniversaryOverlay.classList.add('visible'); startAnniversaryAnimation(); }, 300);
+            }
+            closeAnniversaryBtn.addEventListener('click', () => { dashboardContainer.classList.remove('hidden'); anniversaryOverlay.classList.remove('visible'); stopAnniversaryAnimation(); });
+            const countdownInterval = setInterval(() => {
+                const now = new Date().getTime(); const distance = countdownDate - now;
+                if (distance < 0 || isSimulation) {
+                    clearInterval(countdownInterval);
+                    document.getElementById('countdown-timer').innerHTML = "<div style='font-size:1.5rem; width:100%;'>Happy Anniversary! 🎉</div>";
+                    const anniversaryTriggeredTime = sessionStorage.getItem('anniversaryTriggered');
+                    if (!anniversaryTriggeredTime || isSimulation) { showAnniversarySurprise(); sessionStorage.setItem('anniversaryTriggered', Date.now()); }
+                    return;
                 }
-            }
-            
-            function createFallingElement() {
-                const fallingChars = ['🌸', '🌷', '💖', '🌺', '✨'];
-                const el = document.createElement('div');
-                el.className = 'falling-element';
-                el.textContent = fallingChars[Math.floor(Math.random() * fallingChars.length)];
-                el.style.left = Math.random() * 100 + 'vw';
-                el.style.animationDuration = Math.random() * 5 + 10 + 's';
-                el.style.opacity = Math.random();
-                el.style.fontSize = Math.random() * 1 + 1 + 'rem';
-                fallingElementsContainer.appendChild(el);
-                setTimeout(() => el.remove(), 15000);
-            }
-
-            function saveList() {
-                const currentItems = [];
-                funList.querySelectorAll('li').forEach(li => {
-                    currentItems.push({ text: li.querySelector('label').textContent, checked: li.querySelector('input').checked, id: li.dataset.id });
-                });
-                localStorage.setItem('ourFunListItems', JSON.stringify(currentItems));
-            }
-
-            function createListItem(item) {
-                const li = document.createElement('li'); li.dataset.id = item.id;
-                const checkbox = document.createElement('input');
-                checkbox.type = 'checkbox'; checkbox.checked = item.checked; checkbox.id = item.id;
-                const label = document.createElement('label');
-                label.htmlFor = item.id; label.textContent = item.text;
-                const deleteBtn = document.createElement('button');
-                deleteBtn.className = 'delete-btn'; deleteBtn.textContent = '❌';
-                li.appendChild(checkbox); li.appendChild(label); li.appendChild(deleteBtn);
-                funList.appendChild(li);
-                checkbox.addEventListener('change', saveList);
-                deleteBtn.addEventListener('click', () => { li.remove(); saveList(); });
-            }
-
-            function loadList() {
-                const savedItemsJSON = localStorage.getItem('ourFunListItems');
-                const defaultItems = [
-                    { id: 'item-1', text: "Date night at the park", checked: false }, { id: 'item-2', text: 'Watch "How to train your dragon"', checked: false },
-                    { id: 'item-3', text: "Have a cute date at home", checked: false }, { id: 'item-4', text: "Go out at night in the city", checked: false }
-                ];
-                const itemsToLoad = savedItemsJSON ? JSON.parse(savedItemsJSON) : defaultItems;
-                itemsToLoad.forEach(item => createListItem(item));
-            }
-            
+                document.getElementById('days').textContent = String(Math.floor(distance / (1000 * 60 * 60 * 24))).padStart(2, '0'); document.getElementById('hours').textContent = String(Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0'); document.getElementById('minutes').textContent = String(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0'); document.getElementById('seconds').textContent = String(Math.floor((distance % (1000 * 60)) / 1000)).padStart(2, '0');
+            }, 1000);
+            function checkAnniversaryPersistence() { const triggeredTime = sessionStorage.getItem('anniversaryTriggered'); if (triggeredTime) { if (Date.now() - triggeredTime < 24 * 60 * 60 * 1000) { showAnniversarySurprise(); } else { sessionStorage.removeItem('anniversaryTriggered'); } } }
+            function handleSunMoon() { const currentHour = new Date().getHours(); const isNight = currentHour >= 19 || currentHour < 6; if (isNight) { sunContainer.style.display = 'none'; moonContainer.style.display = 'block'; greetingTextEl.textContent = `Good evening, my beautiful pooker Timi!`; } else { sunContainer.style.display = 'block'; moonContainer.style.display = 'none'; greetingTextEl.textContent = currentHour < 12 ? `Good morning, my beautiful pooker Timi!` : `Good afternoon, my beautiful pooker Timi!`; } }
+            function createFallingElement() { const fallingChars = ['🌸', '🌷', '💖', '🌺', '✨']; const el = document.createElement('div'); el.className = 'falling-element'; el.textContent = fallingChars[Math.floor(Math.random() * fallingChars.length)]; el.style.left = Math.random() * 100 + 'vw'; el.style.animationDuration = Math.random() * 5 + 10 + 's'; el.style.opacity = Math.random(); el.style.fontSize = Math.random() * 1 + 1 + 'rem'; fallingElementsContainer.appendChild(el); setTimeout(() => el.remove(), 15000); }
+            function saveList() { const currentItems = []; funList.querySelectorAll('li').forEach(li => { currentItems.push({ text: li.querySelector('label').textContent, checked: li.querySelector('input').checked, id: li.dataset.id }); }); localStorage.setItem('ourFunListItems', JSON.stringify(currentItems)); }
+            function createListItem(item) { const li = document.createElement('li'); li.dataset.id = item.id; const checkbox = document.createElement('input'); checkbox.type = 'checkbox'; checkbox.checked = item.checked; checkbox.id = item.id; const label = document.createElement('label'); label.htmlFor = item.id; label.textContent = item.text; const deleteBtn = document.createElement('button'); deleteBtn.className = 'delete-btn'; deleteBtn.textContent = '❌'; li.appendChild(checkbox); li.appendChild(label); li.appendChild(deleteBtn); funList.appendChild(li); checkbox.addEventListener('change', saveList); deleteBtn.addEventListener('click', () => { li.remove(); saveList(); }); }
+            function loadList() { const savedItemsJSON = localStorage.getItem('ourFunListItems'); const defaultItems = [ { id: 'item-1', text: "Date night at the park", checked: false }, { id: 'item-2', text: 'Watch "How to train your dragon"', checked: false }, { id: 'item-3', text: "Have a cute date at home", checked: false }, { id: 'item-4', text: "Go out at night in the city", checked: false } ]; const itemsToLoad = savedItemsJSON ? JSON.parse(savedItemsJSON) : defaultItems; itemsToLoad.forEach(item => createListItem(item)); }
             document.addEventListener('mousemove', e => { root.style.setProperty('--mouse-x', e.clientX + "px"); root.style.setProperty('--mouse-y', e.clientY + "px"); });
-            document.body.addEventListener('mousemove', e => {
-                const trailEl = document.createElement('div'); trailEl.className = 'interactive-trail-char';
-                trailEl.textContent = ['🌸', '💖', '✨', '💕', '⭐'][Math.floor(Math.random() * 5)];
-                document.body.appendChild(trailEl); trailEl.style.left = e.clientX - 10 + 'px'; trailEl.style.top = e.clientY - 10 + 'px';
-                setTimeout(() => trailEl.remove(), 1200);
-            });
-            addItemForm.addEventListener('submit', (e) => {
-                e.preventDefault(); const text = newItemInput.value.trim(); if (text === '') return;
-                createListItem({ id: `item-${Date.now()}`, text: text, checked: false });
-                saveList(); newItemInput.value = '';
-            });
-
-            let lastComplimentIndex = -1;
-            function showRandomCompliment() {
-                let randomIndex;
-                do { randomIndex = Math.floor(Math.random() * compliments.length); } while (randomIndex === lastComplimentIndex && compliments.length > 1);
-                lastComplimentIndex = randomIndex; complimentTextEl.textContent = compliments[randomIndex];
-            }
+            document.body.addEventListener('mousemove', e => { const trailEl = document.createElement('div'); trailEl.className = 'interactive-trail-char'; trailEl.textContent = ['🌸', '💖', '✨', '💕', '⭐'][Math.floor(Math.random() * 5)]; document.body.appendChild(trailEl); trailEl.style.left = e.clientX - 10 + 'px'; trailEl.style.top = e.clientY - 10 + 'px'; setTimeout(() => trailEl.remove(), 1200); });
+            addItemForm.addEventListener('submit', (e) => { e.preventDefault(); const text = newItemInput.value.trim(); if (text === '') return; createListItem({ id: `item-${Date.now()}`, text: text, checked: false }); saveList(); newItemInput.value = ''; });
+            let lastComplimentIndex = -1; function showRandomCompliment() { let randomIndex; do { randomIndex = Math.floor(Math.random() * compliments.length); } while (randomIndex === lastComplimentIndex && compliments.length > 1); lastComplimentIndex = randomIndex; complimentTextEl.textContent = compliments[randomIndex]; }
             complimentButtonEl.addEventListener('click', showRandomCompliment);
-            
             const updateClock = () => { const now = new Date(); clockElement.textContent = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }); dateElement.textContent = now.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' }); };
-            
-            const daysEl = document.getElementById('days'), hoursEl = document.getElementById('hours'), minutesEl = document.getElementById('minutes'), secondsEl = document.getElementById('seconds');
-            setInterval(() => { const now = new Date().getTime(); const distance = countdownDate - now; if (distance < 0) { document.getElementById('countdown-timer').innerHTML = "<div style='font-size:1.5rem; width:100%;'>Happy Anniversary! 🎉</div>"; return; } daysEl.textContent = String(Math.floor(distance / (1000 * 60 * 60 * 24))).padStart(2, '0'); hoursEl.textContent = String(Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0'); minutesEl.textContent = String(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0'); secondsEl.textContent = String(Math.floor((distance % (1000 * 60)) / 1000)).padStart(2, '0'); }, 1000);
-            
-            let currentPhotoIndex = 0;
-            function updateGallery() {
-                if (photoGalleryImages.length > 0) { currentPhotoIndex = (currentPhotoIndex + 1) % photoGalleryImages.length;
-                    galleryImageEl.style.opacity = 0; setTimeout(() => { galleryImageEl.src = photoGalleryImages[currentPhotoIndex]; galleryImageEl.style.opacity = 1; }, 500);
-                }
-            }
-            
-            handleSunMoon();
-            setInterval(createFallingElement, 400);
-            loadList();
-            updateClock();
-            setInterval(updateClock, 1000);
-            showRandomCompliment();
-            updateGallery();
-            setInterval(updateGallery, 5000);
+            let currentPhotoIndex = 0; function updateGallery() { if (photoGalleryImages.length > 0) { currentPhotoIndex = (currentPhotoIndex + 1) % photoGalleryImages.length; galleryImageEl.style.opacity = 0; setTimeout(() => { galleryImageEl.src = photoGalleryImages[currentPhotoIndex]; galleryImageEl.style.opacity = 1; }, 500); } }
+            if(!isSimulation) checkAnniversaryPersistence(); 
+            handleSunMoon(); setInterval(createFallingElement, 400); loadList(); updateClock(); setInterval(updateClock, 1000); showRandomCompliment(); updateGallery(); setInterval(updateGallery, 5000);
         });
     </script>
 </body>
