@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Special Place for Pooker ♡ (PREVIEW)</title>
+    <title>A Special Place for Pooker ♡</title>
     
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500&family=Poppins:wght@400;600&display=swap');
@@ -35,7 +35,7 @@
         @keyframes content-fade-in { to { opacity: 1; transform: translateY(0); } }
         .anniversary-content h2 { font-family: 'Caveat', cursive; font-size: clamp(2.5rem, 10vw, 4rem); color: white; margin-bottom: 1rem; text-shadow: 0 0 15px rgba(255, 197, 240, 0.8); transform: translateY(20px); animation-delay: 0.5s; }
         .anniversary-content p { font-size: clamp(1rem, 4vw, 1.1rem); line-height: 1.8; margin-bottom: 1.5rem; transform: translateY(20px); animation-delay: 0.8s; }
-        .anniversary-photo { width: 100%; max-width: 300px; border-radius: 16px; margin: 0 auto 1.5rem; box-shadow: 0 10px 30px rgba(0,0,0,0.3); transform: translateY(20px); animation-delay: 1.1s; filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3)); }
+        .anniversary-photo { width: 100%; max-width: 300px; height: auto; /* THE FIX */ border-radius: 16px; margin: 0 auto 1.5rem; box-shadow: 0 10px 30px rgba(0,0,0,0.3); transform: translateY(20px); animation-delay: 1.1s; filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3)); }
         .anniversary-song { transform: translateY(20px); animation-delay: 1.4s; }
         .anniversary-song iframe { width: 100%; max-width: 400px; aspect-ratio: 16 / 9; height: auto; border-radius: 12px; border: none; margin: 0 auto 1.5rem; }
         #close-anniversary-btn { background: none; color: white; border: 2px solid rgba(255,255,255,0.5); border-radius: 50%; width: 60px; height: 60px; cursor: pointer; transition: all 0.3s; font-family: 'Poppins', sans-serif; font-size: 1.5rem; animation-delay: 1.7s; animation-name: content-fade-in, pulse-heart; animation-duration: 1s, 2s; animation-iteration-count: 1, infinite; }
@@ -51,8 +51,8 @@
     <div id="anniversary-overlay"><canvas id="special-day-canvas"></canvas><div class="anniversary-content"><h2 id="anniversary-title"></h2><p id="anniversary-message"></p><img id="anniversary-photo" src="" alt="Our special moment"><div class="anniversary-song" id="anniversary-song-embed"></div><button id="close-anniversary-btn">❤️</button></div></div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const anniversaryConfig = { title: "Happy Anniversary, My Love!", message: "A year ago today, my life changed for the better because you became a part of it. This past year with you has been the best of my life. Every day feels like a dream, and I can't wait to spend all our future anniversaries together. I love you more than words can say, my beautiful Pooker.", photo: "images/photo1.jpg", songUrl: "https://www.youtube.com/embed/IZ_g6h1vA4s" };
-            const isSimulation = true;
+            const anniversaryConfig = { title: "Happy Anniversary, My Love!", message: "A year ago today, my life changed for the better because you became a part of it. This past year with you has been the best of my life. Every day feels like a dream, and I can't wait to spend all our future anniversaries together. I love you more than words can say, my beautiful Pooker.", photo: "images/photo1.jpg", songUrl: "https://www.youtube.com/embed/Bv-1BnoB75k?start=18" };
+            const isSimulation = false;
             const root = document.documentElement, sunContainer = document.querySelector('.sun-container'), moonContainer = document.querySelector('.moon-container'), fallingElementsContainer = document.getElementById('falling-elements-container'), funList = document.getElementById('fun-list'), addItemForm = document.getElementById('add-item-form'), newItemInput = document.getElementById('new-item-input'), complimentTextEl = document.getElementById('compliment-text'), complimentButtonEl = document.getElementById('compliment-button'), greetingTextEl = document.getElementById('greeting-text'), clockElement = document.getElementById('live-clock'), dateElement = document.getElementById('current-date'), galleryImageEl = document.getElementById('gallery-image'), dashboardContainer = document.querySelector('.dashboard-container'), anniversaryOverlay = document.getElementById('anniversary-overlay'), closeAnniversaryBtn = document.getElementById('close-anniversary-btn');
             const countdownDate = new Date(new Date().getFullYear(), 8, 3).getTime();
             const compliments = ["I love you my little poooper", "M-AU", "Hello green eyed Pooker", "Miu Miu Miu", "I sens LOVEEEEE", "Each time u press the button u give a virtual kissy kiss", "Peter and Pooker loves you"];
@@ -73,7 +73,7 @@
             closeAnniversaryBtn.addEventListener('click', () => { dashboardContainer.classList.remove('hidden'); anniversaryOverlay.classList.remove('visible'); stopAnniversaryAnimation(); });
             const countdownInterval = setInterval(() => {
                 const now = new Date().getTime(); const distance = countdownDate - now;
-                if (distance < 0 || isSimulation) { clearInterval(countdownInterval); document.getElementById('countdown-timer').innerHTML = `<div style='font-size:1.5rem; width:100%;'>Happy Anniversary! 🎉</div>`; const anniversaryTriggeredTime = sessionStorage.getItem('anniversaryTriggered'); if (!anniversaryTriggeredTime || isSimulation) { showAnniversarySurprise(); sessionStorage.setItem('anniversaryTriggered', Date.now()); } return; }
+                if (distance < 0) { clearInterval(countdownInterval); document.getElementById('countdown-timer').innerHTML = `<div style='font-size:1.5rem; width:100%;'>Happy Anniversary! 🎉</div>`; const anniversaryTriggeredTime = sessionStorage.getItem('anniversaryTriggered'); if (!anniversaryTriggeredTime) { showAnniversarySurprise(); sessionStorage.setItem('anniversaryTriggered', Date.now()); } return; }
                 document.getElementById('days').textContent = String(Math.floor(distance / (1000 * 60 * 60 * 24))).padStart(2, '0'); document.getElementById('hours').textContent = String(Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0'); document.getElementById('minutes').textContent = String(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0'); document.getElementById('seconds').textContent = String(Math.floor((distance % (1000 * 60)) / 1000)).padStart(2, '0');
             }, 1000);
             function checkAnniversaryPersistence() { const triggeredTime = sessionStorage.getItem('anniversaryTriggered'); if (triggeredTime) { if (Date.now() - triggeredTime < 24 * 60 * 60 * 1000) { showAnniversarySurprise(); } else { sessionStorage.removeItem('anniversaryTriggered'); } } }
@@ -89,8 +89,7 @@
             complimentButtonEl.addEventListener('click', showRandomCompliment);
             const updateClock = () => { const now = new Date(); clockElement.textContent = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }); dateElement.textContent = now.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' }); };
             let currentPhotoIndex = 0; function updateGallery() { if (photoGalleryImages.length > 0) { currentPhotoIndex = (currentPhotoIndex + 1) % photoGalleryImages.length; galleryImageEl.style.opacity = 0; setTimeout(() => { galleryImageEl.src = photoGalleryImages[currentPhotoIndex]; galleryImageEl.style.opacity = 1; }, 500); } }
-            if(!isSimulation) checkAnniversaryPersistence(); 
-            handleSunMoon(); setInterval(createFallingElement, 400); loadList(); updateClock(); setInterval(updateClock, 1000); showRandomCompliment(); updateGallery(); setInterval(updateGallery, 5000);
+            checkAnniversaryPersistence(); handleSunMoon(); setInterval(createFallingElement, 400); loadList(); updateClock(); setInterval(updateClock, 1000); showRandomCompliment(); updateGallery(); setInterval(updateGallery, 5000);
         });
     </script>
 </body>
